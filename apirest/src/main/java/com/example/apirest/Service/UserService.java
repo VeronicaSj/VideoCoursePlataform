@@ -1,6 +1,7 @@
 package com.example.apirest.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,19 +18,32 @@ public class UserService {
         return  (List<User>) userRepository.findAll();
     }
 
-    public User getUserById(Integer id) {
-        return userRepository.findById(id).get();
+    public User getUserById(String name) {
+        User res= null;
+        Optional<User> opt = userRepository.findById(name);
+
+        if(!opt.equals(Optional.empty())){
+            res = opt.get();
+        }
+        return res;
     }
 
-    public User createUser(User post) {
-        return userRepository.save(post);
+    public User createUser(User user) {
+        return userRepository.save(user);
     }
 
-    public User updateUser(User post) {
-        return userRepository.save(post);
+    public User createOrUpdateUser(User user) {
+        User res= null;
+        if(!userRepository.existsById(user.getName())){
+            res =userRepository.save(user);
+        }else{
+            
+            res =userRepository.save(user);
+        }
+        return res;
     }
 
-    public void deleteUser(Integer id) {
+    public void deleteUser(String id) {
         userRepository.deleteById(id);
     }
 }

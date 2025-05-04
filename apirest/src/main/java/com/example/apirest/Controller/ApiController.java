@@ -13,4 +13,6 @@ public class ApiController {
     public ResponseEntity getUserById(Model model) {
         return ResponseEntity.ok(new User());
     }
+
+    
 }

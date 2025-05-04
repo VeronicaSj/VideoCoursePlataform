@@ -1,28 +1,24 @@
 package com.example.apirest.Model;
 
 import java.util.Date;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name="User")
-public class User {
+public class User
+    {
     
     @Id
-    int id;
-
     @Column(name="name", length = 20)
     String name;
 
     @Column(name="mail", length = 20)
     String mail;
-
-    @Column(name="pw", length = 20)
-    String pw;
 
     @Column(name="date", length = 20)
     Date date;
@@ -37,14 +33,22 @@ public class User {
     Date lastLog;
 
     public User() {
+        
     }
 
-    public int getId() {
-        return id;
+    
+
+    public User( String name, String mail, Date date, String img, String type, Date lastLog) {
+        this.name = name;
+        this.mail = mail;
+        this.date = date;
+        this.img = img;
+        this.type = type;
+        this.lastLog = lastLog;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public User( String name) {
+        this.name = name;
     }
 
     public String getName() {
@@ -61,14 +65,6 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    public String getPw() {
-        return pw;
-    }
-
-    public void setPw(String pw) {
-        this.pw = pw;
     }
 
     public Date getDate() {
@@ -102,4 +98,27 @@ public class User {
     public void setLastLog(Date lastLog) {
         this.lastLog = lastLog;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 19 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        return Objects.equals(this.name, other.name);
+    }
+    
 }
