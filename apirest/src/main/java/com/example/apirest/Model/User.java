@@ -14,22 +14,22 @@ public class User
     {
     
     @Id
-    @Column(name="name", length = 20)
+    @Column(name="name")
     String name;
 
-    @Column(name="mail", length = 20)
+    @Column(name="mail")
     String mail;
 
-    @Column(name="date", length = 20)
+    @Column(name="date")
     Date date;
 
-    @Column(name="img", length = 20)
+    @Column(name="img")
     String img;
 
-    @Column(name="type", length = 20)
+    @Column(name="type")
     String type;
 
-    @Column(name="last_log", length = 20)
+    @Column(name="last_log")
     Date lastLog;
 
     public User() {

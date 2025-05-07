@@ -1,4 +1,4 @@
-package com.example.apirest.Service;
+package com.example.apirest;
 
 public class Endpoints {
     //USER ENDPOINTS

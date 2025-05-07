@@ -1,37 +1,65 @@
 package com.example.apirest.Model;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-@Entity
 @Table(name="Course")
 public class Course {
 
     public enum Coin {
-        EURO, DOLLAR;
+        EUR, USD;
     }
 
+    @Id
+    @Column(name="id")
     Integer id;
+
+    @Column(name="name")
     String name;
+
+    @Column(name="description")
     String description;
+
+    @Column(name="price")
     Integer price;
+
+    @Column(name="coin")
     Coin coin;
+
+    @Column(name="punctuation")
     Boolean punctuation;
     
+    @Column(name="creation_date")
     Date creationDate;
+
+    @Column(name="last_update")
     Date lastUpdate;
+
+    @Column(name="deletion_date")
     Date deletionDate;
+
+    @Column(name="is_public")
     Boolean isPublic;
+
+    @Column(name="is_holded")
     Boolean isHolded;
 
-    //TODO atributes
-    String img;
+    @Column(name="img")
+    @OneToOne
+    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
+    Image img;
 
     //relationship atributes
-    Category category;
+
     Profesor profesor;
+    List<Category> categoryList;
     List<User> alumnList;
 }
