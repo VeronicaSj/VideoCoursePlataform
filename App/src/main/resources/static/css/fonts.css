@@ -1,0 +1,114 @@
+/* font resize---------------- */
+@media screen and (max-width: 800px) {
+	:root {
+		--fs-h1: 50px;
+		--fs-h2: 40px;
+		--fs-h3: 30px;
+		--fs-p: 18px;
+		line-height: 1.0;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	:root {
+		--fs-h1: 50px;
+		--fs-h2: 40px;
+		--fs-h3: 30px;
+		--fs-p: 16px;
+	}
+}	
+
+@media screen and (max-width: 430px) {
+	:root {
+		--fs-h1: 40px;
+		--fs-h2: 30px;
+		--fs-h3: 20px;
+		--fs-p: 16px;
+	}
+}	
+
+/* font style---------------- */
+
+
+p {
+	text-align: center;
+	font-size: var(--fs-p);
+	color: var(--clr-grey);
+}
+
+h1 {
+	text-align: center;
+	font-weight: bold;
+	color: var(--clr-grey);
+
+    
+	font-size: var(--fs-h1);
+}
+
+h2 {
+	text-align: center;
+	font-weight: bold;
+	color: var(--clr-grey);
+
+    
+	font-size: var(--fs-h2);
+}
+
+h3 {
+	text-align: center;
+	font-weight: bold;
+	color: var(--clr-grey);
+
+    
+	font-size: var(--fs-h3);
+}
+
+h4 {
+	text-align: center;
+	font-weight: bold;
+	color: var(--clr-grey);
+
+    
+	font-size: var(--fs-h1);
+}
+
+h5 {
+	text-align: center;
+	font-weight: bold;
+	color: var(--clr-grey);
+
+    
+	font-size: var(--fs-h1);
+}
+
+
+button {
+	color: var(--clr-white);
+	font-weight: bold;
+
+	font-size: var(--fs-p);
+}
+
+a {
+	text-align: center;
+	color: inherit;
+	text-decoration: none;
+    
+	font-size: inherit;
+}
+
+
+
+label {
+	text-align: center;
+	font-size: var(--fs-p);
+	color: var(--clr-grey);
+}
+
+input{
+	font-size: var(--fs-p);
+}
+
+textarea{
+	font-size: var(--fs-p);
+}

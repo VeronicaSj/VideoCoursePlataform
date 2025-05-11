@@ -1,0 +1,72 @@
+.content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+}
+
+.contactMedia {
+    width: 50%;
+    padding: 1%;
+}
+
+.contactForm {
+    align-content: center;
+    justify-content: center;
+    padding:1%;
+    width: 50%;
+    height: 100%;
+}
+
+.formPart {
+    align-self: center;
+    justify-content: center;
+    padding:1%;
+    height: fit-content;
+}
+
+.icons {
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    justify-content: center;
+}
+
+.iconSet {
+    display: flex;
+    flex-direction: row;
+    padding: 1%;
+}
+
+@media screen and (max-width: 700px) {
+	.content {
+        flex-direction: column;
+    }
+    .contactMedia {
+        width: fit-content;
+    }
+    
+    .contactForm {
+        width: 70%;
+    }
+}
+
+img {
+    max-height:50px; 
+    max-width:50px; 
+    height:auto;		
+    width:auto; 
+    display: block;	
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1%;
+}
+
+@media screen and (max-width: 350px) {
+	.icons {
+        flex-direction: column;
+    }
+    .textContactMedia {
+        display: none;
+    }
+}	

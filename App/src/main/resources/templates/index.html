@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset ="UTF-8"/>
+		<title th:text="${title}"></title>
+		<meta name="description" th:content="${subtitle}">
+
+		<link rel="icon" type="image/png" href="resources/logo.jpg">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link href="/css/index.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: navigationCss">
+		
+	</head>
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+			<img src="resources/logo.png" alt="Selfie" 
+			style="max-height:20%; max-width:20%; height:auto;
+				width:auto; display: block;
+				margin-left: auto;
+				margin-right: auto;">
+
+			<h1 th:text="${title}"></h1>
+
+			<p th:text="${description}"></p>
+
+			<div class="btnAreaDiv">
+				<div class="btnDiv">
+					<a href="/login" target="_blank">
+						<button type="button">Start</button>
+					</a>
+				</div>
+			</div>
+		</main>
+		<footer th:replace="../fragments/navigation :: footer"></footer>
+	</body>
+</html>

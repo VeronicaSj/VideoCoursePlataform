@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<meta charset ="UTF-8"/>
+		<title>Verónica Sánchez Justicia</title>
+		<link rel="icon" type="image/png" href="./favicon.png">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link href="css/blog.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: headerCss">
+		<link th:replace="../fragments/navigation :: footerCss">
+
+	</head>
+	
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+			<h2>Blog</h2>
+			<div class="blogDisplay">
+				<div class="blogCard" th:each="post : ${posts}">
+					<a th:href="@{/post/{postId}(postId=${post.id})}">
+						<h3 th:text="${post.title}"></h3>
+						<div class="postContent" ><p th:text="${post.content}"></p></div>
+						<p th:text="${post.lastUpdate}"></p>
+					</a>
+				</div>
+			</div>
+		</main>
+		<footer th:replace="../fragments/navigation :: footer"></footer>
+	</body>
+</html>

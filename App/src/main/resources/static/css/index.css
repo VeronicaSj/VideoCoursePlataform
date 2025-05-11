@@ -1,0 +1,11 @@
+.btnDiv {
+  text-align: center;
+  margin:2%;
+  width: 50%;
+}
+
+.btnAreaDiv {
+  width: 100%;
+  justify-items: center;
+}
+

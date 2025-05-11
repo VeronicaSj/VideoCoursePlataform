@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<meta charset ="UTF-8"/>
+		<title>Contact Msg List</title>
+		<link rel="icon" type="image/png" href="./favicon.png">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: headerCss">
+		<link th:replace="../fragments/navigation :: footerCss">
+
+	</head>
+	
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+			<h2>Contact Msg List</h2>
+            <p>This page is only for the web owner, you shouldn't be here</p>
+			<div >
+				<div th:each="msg : ${msgs}">
+                    <h3 th:text="${msg.id}"></h3>
+                    <p th:text="${msg.email}"></p>
+                    <p th:text="${msg.subject}"></p>
+                    <p th:text="${msg.msg}"></p>
+                    <p th:text="${msg.date}"></p>
+				</div>
+			</div>
+		</main>
+		<footer th:replace="../fragments/navigation :: footer"></footer>
+	</body>
+</html>

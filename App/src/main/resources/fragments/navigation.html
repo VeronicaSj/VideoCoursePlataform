@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head >
+        <meta charset ="UTF-8"/>
+        
+		<link href="css/navigation.css" rel="stylesheet" type="text/css" th:fragment="navigationCss">
+    </head>
+    <body>
+        <div th:each="navLink : ${navLinkList}" th:fragment="navbar" class="navigationlist">
+            <a th:href="@{${navLink.herf}}" th:text="${navLink.text}"></a>
+        </div>
+
+        <header th:fragment="header">
+            <img src="resources/logo.png" alt="Selfie" 
+			    style="max-height:10%; max-width:10%; height:auto;
+				width:auto; display: block;">
+            <div class="headerTitleContainer">
+                <h3><a href="/">AcadeMice</a></h3>
+            </div>
+            <div th:replace="../fragments/navigation :: navbar" class="navigationlist" ></div>
+		</header>
+
+        <footer th:fragment="footer">
+            <img src="resources/logo.png" alt="Selfie" 
+			    style="max-height:100%; max-width:100%; height:auto;
+				    width:auto; display: block;">
+			<div th:replace="../fragments/navigation :: navbar" class="navigationlist"></div>
+		</footer>
+
+    </body>
+</html>

@@ -1,0 +1,21 @@
+:root {
+	--ff-primary: 'Roboto';
+
+	--fw-reg: 300;
+	--fw-bold: 900;
+
+	--clr-white:#fff;
+	--clr-black: #000000;
+	--clr-grey: #474747;
+    --clr-yellow:#FFCB70;
+    --clr-pink:#C751C0;
+    --clr-blue:#4158D0;
+
+    --degr-ypb:linear-gradient(135deg, var(--clr-yellow), var(--clr-pink), var(--clr-blue));
+	
+	
+    --fs-h1: 80px;
+    --fs-h2: 60px;
+    --fs-h3: 40px;
+    --fs-p: 18px;
+}

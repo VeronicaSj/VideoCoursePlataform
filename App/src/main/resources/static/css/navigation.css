@@ -1,0 +1,16 @@
+.headerTitleContainer {
+	min-width:20%; 
+	overflow: hidden; 
+	white-space: nowrap;
+	display: flex;
+	flex-direction: row;
+	padding: 1%;
+}
+
+.navigationlist {
+	display: flex;
+	padding: 3%;
+}
+
+
+

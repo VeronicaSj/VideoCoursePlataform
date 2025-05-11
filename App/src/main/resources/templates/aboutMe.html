@@ -1,0 +1,59 @@
+<html lang="en" xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset ="UTF-8"/>
+		<title>Verónica Sánchez Justicia</title>
+		<link rel="icon" type="image/png" href="./favicon.png">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link href="/css/aboutme.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: headerCss">
+		<link th:replace="../fragments/navigation :: footerCss">
+	</head>
+	
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+			<h2>Sobre mi</h2>
+			<img src="resources/selfie.jpeg" alt="Selfie" 
+			style="max-height:40%; max-width:40%; height:auto;
+				width:auto; display: block;
+				margin-left: auto;
+				margin-right: auto;">
+			
+			<p>Soy Tecnica Superior en Desarrollo de 
+			Aplicaciones Multiplataforma con experiencia laboral en 
+			Administracion de Sistemas. Actualmente me encuentro en 
+			búsqueda activa de empleo.</p>
+			
+			<p>Estoy especialmente interesada en seguir aprendiendo sobre 
+			Desarrollo de Software y Administración de Sistemas. Mis 
+			especialidades son la programación Java, desarrollo Android, 
+			desarrollo web 
+			y gestión de bases de datos SQL y noSQL.</p>
+			
+			<p>Los idiomas en los que me puedo comunicar fluidamente son el 
+			Español y el Inglés (B2), aunque estoy aprendiendo nuevos idiomas 
+			como la Lengua de Signos Española y el Alemán.</p>
+
+			<p>Soy una persona especialmente creativa y resolutiva.
+			 También me gusta estar en contacto con otras personas ya sean compañeros de 
+			trabajo o clientes. Soy una persona muy asertiva y paciente, con
+			alta tolerancia a la frustración.</p>
+			 
+			<p>Dedico mi tiempo libre a dibujar, practicar deportes, aprender Alemán 
+			seguir aprendiendo sobre informática</p>
+
+			<p>Algunos de los proyectos que estoy realizando son:
+				<ul>
+					<li>Aplicación para aprender vocabulario Alemán</li>
+					<li>Web personal realizada con Spring</li>
+					<li>Web para contratacion de profesores particulares</li>
+				</ul>
+			</p>
+		</main>
+		
+		<footer th:replace="../fragments/navigation :: footer"></footer>
+	</body>
+</html>
