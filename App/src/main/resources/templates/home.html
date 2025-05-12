@@ -18,16 +18,7 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
 			<h2 th:text="${title}"></h2>
-            <form  th:action="@{/singup}" method='POST'>
-				<div th:if="${error}" th:text="${errorMsg}"></div>
-                <label>*User Name: </label> <br>
-                <input type="text" id="username" name="username">
-                <label>*PassWord: </label><br>
-                <input type="password" id="pw" name="password">
-                <p>"*" Means it's a required file</p>
-                <button type="submit">Sing Up</button>
-            </form>
-			<a th:href="@{/login}">I want to Log In</a>
+            
 		</main>
 		<footer th:replace="../fragments/navigation :: footer"></footer>
 	</body>

@@ -1,128 +1,143 @@
 package videocurseapp.demo.Model;
 
-import java.util.Date;
-import java.util.Objects;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="User")
-public class User
-    {
-    
+public class User implements UserDetails {
+    // Delimiter used to split authorities string
+    private static final String AUTHORITIES_DELIMITER = "::";
+
+    // Unique identifier for the user
     @Id
-    @Column(name="name")
-    String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Column(name="mail")
-    String mail;
+    // Username of the user
+    private String username;
 
-    @Column(name="date")
-    Date date;
+    // Password of the user
+    private String password;
 
-    @Column(name="type")
-    String type;
+    // Authorities granted to the user, stored as a single string
+    private String authorities;
 
-    @Column(name="last_log")
-    Date lastLog;
+    /**
+     * Returns the authorities granted to the user.
+     * @return a collection of GrantedAuthority objects
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Split the authorities string and convert to a list of SimpleGrantedAuthority objects
+        return Arrays.stream(this.authorities.split(AUTHORITIES_DELIMITER))
+                     .map(SimpleGrantedAuthority::new)
+                     .collect(Collectors.toList());
+    }
 
-    @OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "image_id")
-	private Image img;
+    /**
+     * Returns the password used to authenticate the user.
+     * @return the password
+     */
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     * @return the username
+     */
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * Indicates whether the user's account has expired.
+     * @return true if the account is non-expired, false otherwise
+     */
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    /**
+     * Indicates whether the user is locked or unlocked.
+     * @return true if the account is non-locked, false otherwise
+     */
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    /**
+     * Indicates whether the user's credentials have expired.
+     * @return true if the credentials are non-expired, false otherwise
+     */
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    /**
+     * Indicates whether the user is enabled.
+     * @return true if the user is enabled, false otherwise
+     */
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public static String getAuthoritiesDelimiter() {
+        return AUTHORITIES_DELIMITER;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAuthorities(String authorities) {
+        this.authorities = authorities;
+    }
 
     public User() {
-        
+    }
+
+    public User(String username, String password, String authorities) {
+        this.username = username;
+        this.password = password;
+        this.authorities = authorities;
+    }
+
+    public User(int id) {
+        this.id = id;
     }
 
     
-
-    public User( String name, String mail, Date date, Image img, String type, Date lastLog) {
-        this.name = name;
-        this.mail = mail;
-        this.date = date;
-        this.img = img;
-        this.type = type;
-        this.lastLog = lastLog;
-    }
-
-    public User( String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    public Image getImg() {
-        return img;
-    }
-
-    public void setImg(Image img) {
-        this.img = img;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Date getLastLog() {
-        return lastLog;
-    }
-
-    public void setLastLog(Date lastLog) {
-        this.lastLog = lastLog;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 19 * hash + Objects.hashCode(this.name);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final User other = (User) obj;
-        return Objects.equals(this.name, other.name);
-    }
+    
     
 }

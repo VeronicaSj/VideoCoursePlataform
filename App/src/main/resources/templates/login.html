@@ -17,17 +17,17 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
 			<h2 th:text="${title}"></h2>
-
-            <form action="#" th:action="@{/submitLogin}"  method="get">
-                <label>*Email: </label> <br>
-                <input id="email" name="email">
+            <form  th:action="@{/login}" method='POST'>
+				<div th:if="${error}" th:text="${errorMsg}"></div>
+                <label>*User Name: </label> <br>
+                <input type="text" id="username" name="username">
                 <label>*PassWord: </label><br>
-                <input id="pw" name="pw">
+                <input type="password" id="pw" name="password">
                 <p>"*" Means it's a required file</p>
                 <button type="submit">Log In</button>
             </form>
 
 		</main>
-		<footer th:replace="../fragments/navigation :: footer"></footer>
 	</body>
+	<footer th:replace="../fragments/navigation :: footer"></footer>
 </html>
