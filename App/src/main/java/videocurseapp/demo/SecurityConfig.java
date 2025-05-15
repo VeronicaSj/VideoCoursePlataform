@@ -67,7 +67,11 @@ class SecurityConfig {
                 .anonymous());
         http
             .authorizeRequests(request -> request.requestMatchers(
-                new AntPathRequestMatcher("/singup"))
+                new AntPathRequestMatcher("/singup/**"))
+                .anonymous());
+        http
+            .authorizeRequests(request -> request.requestMatchers(
+                new AntPathRequestMatcher("/singuperror/**"))
                 .anonymous());
         http
             .authorizeRequests(request -> request.requestMatchers(

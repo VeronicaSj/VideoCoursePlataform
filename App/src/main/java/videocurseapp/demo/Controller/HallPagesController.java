@@ -6,14 +6,18 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import videocurseapp.demo.Repository.UserRepository;
 import videocurseapp.demo.Service.UserService;
+import videocurseapp.demo.Utilities.EmailValidator;
 import videocurseapp.demo.Utilities.NavLinkGetter;
+import videocurseapp.demo.Utilities.UserDto;
 
 
 @Controller
@@ -24,6 +28,7 @@ public class HallPagesController {
 
     @Autowired
     UserRepository userRepo;
+    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 
     HallPagesController(UserService userService) {
         this.userService = userService;
@@ -71,18 +76,56 @@ public class HallPagesController {
         model.addAttribute("title", "Sing Up");
         model.addAttribute("subtitle", "Sing Up | AcadeMice");
         model.addAttribute("description", "The best platform for online courses for people passionate about education");
-                        
+        model.addAttribute("username", "");
+        model.addAttribute("email", "");
+        model.addAttribute("errorEmail", false);
+        model.addAttribute("errorPwMatch", false);
+        return "singup";
+    }
+    
+    @GetMapping("/singup?username={username}&errorEmail={errorEmail}&email={email}&errorPwMatch={errorPwMatch}")
+    public String singUpParm(Model model, 
+            @PathVariable String username, 
+            @PathVariable boolean errorEmail,
+            @PathVariable String email,
+            @PathVariable boolean errorPwMatch){
+        model.addAttribute("navLinkList", NAV_LINK_GETTER.getHallNavLinkList());
+        model.addAttribute("title", "Sing Up");
+        model.addAttribute("subtitle", "Sing Up | AcadeMice");
+        model.addAttribute("description", "The best platform for online courses for people passionate about education");
+        System.out.println("sout" );
+        model.addAttribute("username", username);
+        model.addAttribute("email", email);
+        model.addAttribute("errorEmail", true);
+        model.addAttribute("errorEmailMsg", "ERROR!: Invalid mail");
+        model.addAttribute("errorPwMatch", errorPwMatch);
+        model.addAttribute("errorPwMatchMsg", "ERROR!: Unmatching password");
+        
         return "singup";
     }
 
     @PostMapping("/singup")
-    public String postSingUp(@RequestParam("username") String username, @RequestParam("password") String password){
+    public String postSingUp(RedirectAttributes redirectAttributes, 
+            @RequestParam("username") String username, 
+            @RequestParam("email") String email, 
+            @RequestParam("password") String password,  
+            @RequestParam("matchingPassword") String matchingPassword){
         //TODO: https://www.baeldung.com/registration-with-spring-mvc-and-spring-security
-        userService.create(username, password);
-       return  "redirect:/home";
-    }
+        boolean validMail=new EmailValidator().isValid(email);
+        boolean pwMatch= password.equals(matchingPassword);
 
-    SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+        if( !validMail || !pwMatch){
+            redirectAttributes.addAttribute("username", username);
+            redirectAttributes.addAttribute("email", email);
+            redirectAttributes.addAttribute("errorEmail", !validMail);
+            redirectAttributes.addAttribute("errorPwMatch", !pwMatch);
+            return  "redirect:/singup";
+        }
+        
+        userService.create(username, password);
+
+        return  "redirect:/home";
+    }
 
     @GetMapping("/logout")
     public String performLogout(Authentication authentication, HttpServletRequest request, HttpServletResponse response) {
