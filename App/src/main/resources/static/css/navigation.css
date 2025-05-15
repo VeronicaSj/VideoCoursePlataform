@@ -24,6 +24,8 @@
     display: inline-block;
 	align-self: center;
 	justify-self: center;
+    width: 30%;
+    height: 100%;
 }
 
 .dropdown-content {
