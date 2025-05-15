@@ -9,6 +9,9 @@ public class NavLink {
         this.text=text;
     }
 
+    public NavLink() {
+    }
+
     public String getHerf() {
         return herf;
     }

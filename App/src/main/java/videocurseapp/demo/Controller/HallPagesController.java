@@ -31,8 +31,7 @@ public class HallPagesController {
         model.addAttribute("navLinkList", NAV_LINK_GETTER.getHallNavLinkList());
         model.addAttribute("title", "AcadeMice");
         model.addAttribute("subtitle", "Best teaching and learning plataform");
-        model.addAttribute("description", "The best platform for online courses for people passionate about education");
-                        
+        model.addAttribute("description", "The best online course platform for people passionate about education");
         return "index";
     }
 

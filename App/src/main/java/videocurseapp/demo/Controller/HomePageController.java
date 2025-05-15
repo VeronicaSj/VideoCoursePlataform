@@ -15,6 +15,7 @@ public class HomePageController {
     public String home( Model model ) {
         
         model.addAttribute("navLinkList", NAV_LINK_GETTER.getInAppNavLinkList());
+        model.addAttribute("avatar", "/resources/avatar.png");
         model.addAttribute("title", "Home");
         model.addAttribute("subtitle", "Home | AcadeMice");
         

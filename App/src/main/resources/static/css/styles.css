@@ -13,7 +13,6 @@ main {
     padding-bottom: 100px;
 	display: flex;
 	flex-direction: column;
-	
 }
 
 
@@ -33,6 +32,7 @@ footer {
 
 header {
 	display: flex;
+	flex-direction: row;
 	align-items: center;
 	position: relative;
     left: 0;
@@ -51,6 +51,17 @@ body {
 	line-height: 1.231;
 }
 
+p {
+	width: 50%;
+	align-self: center;
+}
+
+form {
+	width: 50%;
+	height: 100%;
+	align-self: center;
+}
+
 button {
 	background-image: var(--degr-ypb);
 	border-style: none;
@@ -60,15 +71,8 @@ button {
 	cursor: pointer;
 }
 
-form {
-	width: 50%;
-	height: 100%;
-	align-self: center;
-}
-
 a {
-	width: 100%;
-	height: 100%;
+	align-items: center;
 	padding: 1%;
 	text-align: center;
 	font-size: 100%;
@@ -78,8 +82,6 @@ a {
 }
 
 a:hover {
-	width: 100%;
-	height: 100%;
 	padding: 1%;
 	text-align: center;
 	font-size: 100%;
@@ -87,6 +89,7 @@ a:hover {
 	background-color: #E4E4E4;
 	white-space: nowrap;
 	cursor: pointer;
+	align-items: center;
 }
 
 
@@ -97,4 +100,15 @@ input{
 textarea{
 	width: 100%;
 	height: 100%;
+}
+
+.btnDiv {
+  text-align: center;
+  margin:2%;
+  width: 50%;
+}
+
+.btnAreaDiv {
+  width: 100%;
+  justify-items: center;
 }

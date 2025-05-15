@@ -14,6 +14,7 @@ public class HelpPageController {
     public String account( Model model ) {
         
         model.addAttribute("navLinkList", NAV_LINK_GETTER.getInAppNavLinkList());
+        model.addAttribute("avatar", "/resources/avatar.png");
         model.addAttribute("title", "Help");
         model.addAttribute("subtitle", "Help | AcadeMice");
         

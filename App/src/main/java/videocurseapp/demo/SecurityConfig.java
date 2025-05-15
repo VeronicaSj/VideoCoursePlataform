@@ -15,6 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter.Directive;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import videocurseapp.demo.Service.UserService;
@@ -40,12 +43,14 @@ class SecurityConfig {
             .loginPage("/login")
             .defaultSuccessUrl("/home", true)
             .failureUrl("/login/error")
-            .permitAll()
-        );
+            .permitAll());
         http
-        .logout(logout -> logout
-            .deleteCookies("JSESSIONID")
-        );
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll());
+
         http
             .authorizeRequests(request -> request.requestMatchers(
                 new AntPathRequestMatcher("/"))
