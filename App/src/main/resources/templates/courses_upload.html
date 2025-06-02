@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset ="UTF-8"/>
+		<title th:text="${title}"></title>
+		<meta name="description" th:content="${subtitle}">
+
+		<link rel="icon" type="image/png" href="resources/logo.jpg">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: navigationCss">
+		
+	</head>
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+			<h2 th:text="${title}"></h2>
+            <form  th:action="@{/courses/upload}" method='POST'>
+				<div class="fieldDiv">
+					<div th:if="${nameError}" th:text="${nameErrorMsg}" class="badMsgDiv"></div>
+					<label th:text="${nameLbl}"></label> <br>
+					<input th:value="${nameValue}" type="text" id="name" name="name" required>
+				</div>
+				<div class="fieldDiv">
+					<div th:if="${descriptionError}" th:text="${descriptionErrorMsg}" class="badMsgDiv"></div>
+					<label th:text="${descriptionLbl}"></label> <br>
+					<textarea th:text="${descriptionValue}" type="description" id="description" name="description" required></textarea>
+				</div>
+				<div class="fieldDiv">
+					<div th:if="${priceError}" th:text="${priceErrorMsg}" class="badMsgDiv"></div>
+					<label th:text="${priceLbl}"></label> <br>
+					<input th:value="${priceValue}" type="number" id="price" name="price" required>
+				</div>
+				<div class="fieldDiv">
+					<div th:if="${coinError}" th:text="${coinErrorMsg}" class="badMsgDiv"></div>
+					<label th:text="${coinLbl}"></label> <br>
+					<select id="coin" name="coin" required >
+						<option value="EUR" th:selected="${coinValueEUR}">EUR</option>
+						<option value="USD" th:selected="${coinValueUSD}">USD</option>
+					</select>
+				</div>
+				<div class="fieldDiv">
+					<div th:if="${isPublicError}" th:text="${isPublicErrorMsg}" class="badMsgDiv"></div>
+					<label th:text="${isPublicLbl}"></label> <br>
+					<select name="ispublic" required >
+						<option value="Public" th:selected="${isPublicValuePublic}">Public</option>
+						<option value="Privated" th:selected="${isPublicValuePrivated}">Pribated</option>
+					</select>
+				</div>
+                <button th:text="${btnNextMsg}" type="submit"></button>
+            </form>
+		</main>
+	</body>
+	<footer th:replace="../fragments/navigation :: footer"></footer>
+</html>

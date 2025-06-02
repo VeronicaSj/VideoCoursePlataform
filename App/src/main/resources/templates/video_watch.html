@@ -16,21 +16,9 @@
 	<body>
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
-			<h2 th:text="${title}"></h2>
-            <form  th:action="@{/login}" method='POST'>
-				<div th:if="${error}" th:text="${errorMsg}" class="errorDiv"></div>
-
-				<div class="fieldDiv">
-					<label>User Name: </label> <br>
-					<input type="text" id="username" name="username" required>
-				</div>
-				<div class="fieldDiv">
-					<label>PassWord: </label><br>
-					<input type="password" id="pw" name="password" required>
-				</div>
-                <button type="submit">Log In</button>
-            </form>
-			<a th:href="@{/singup}">I want to Sing Up</a>
+            <h2 th:text="${title}"></h2>
+            <video th:src="${videosrc}" width="720px" height="480px" controls preload="none">
+            </video>
 		</main>
 	</body>
 	<footer th:replace="../fragments/navigation :: footer"></footer>

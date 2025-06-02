@@ -16,25 +16,25 @@
 	<body>
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
-			<div class="accountPgDiv">
-				<div class="sideBar" >
-						<a th:each="link : ${sideBarLinks}" 
-							class="sideBarItem"
-							th:href="@{${link.herf}}" th:text="${link.text}"></a>
+            <h2 th:text="${title}"></h2>
+            <form
+				method="post"
+				th:action="@{/videos/upload/{redirect}(redirect=${redirect})}"
+				enctype="multipart/form-data">
+				<input id="input-file" type="file" name="file" accept="video/mp4" />
+				<div
+					th:if="${message != null}"
+					th:class="${classs}"
+					role="alertdialog">
+					[[${message}]]
 				</div>
-				<div class="columnDiv">
-					<h2 th:text="${title}"></h2>
-					<div class="rowDiv">
-						<div class="columnDiv">
-                    		<img th:if="${avatar}" th:src="@{'data:image/jpeg;base64,'+${avatar.getImgBase64()}}" th:alt="avatar" class="avatar-account" >
-						</div>
-						<div class="columnDiv">
-							<h3 th:text="${username}" ></h3>
-							<h3 th:text="${email}" ></h3>
-							<h3 th:if="${isProfessor}" th:text="${isProfessorMsg}" ></h3>
-							
-						</div>
-					</div>
+                <button type="submit" th:text="${btnUploadMsg}"></button>
+			</form>
+            <div class="btnAreaDiv">
+				<div class="btnDiv">
+					<a th:href="${btnNextHref}" target="_blank">
+						<button type="button" th:text="${btnNextMsg}"></button>
+					</a>
 				</div>
 			</div>
 		</main>

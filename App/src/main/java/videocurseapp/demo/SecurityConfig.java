@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler;
 import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
@@ -51,7 +52,10 @@ class SecurityConfig {
             .defaultSuccessUrl("/home", true)
             .failureUrl("/login/error")
             .permitAll());
-
+        http
+            .authorizeRequests(request -> request.requestMatchers(
+                new AntPathRequestMatcher("/login/error"))
+                .permitAll());
 
         http 
                 .logout(logout -> logout
@@ -67,7 +71,7 @@ class SecurityConfig {
                 .anonymous());
         http
             .authorizeRequests(request -> request.requestMatchers(
-                new AntPathRequestMatcher("/singup"))
+                new AntPathRequestMatcher("/signup/**"))
                 .anonymous());
         http
             .authorizeRequests(request -> request.requestMatchers(
@@ -78,14 +82,41 @@ class SecurityConfig {
                 new AntPathRequestMatcher("/home"))
                 .authenticated());
         http
-          .authorizeRequests(request -> request.requestMatchers(
+            .authorizeRequests(request -> request.requestMatchers(
               new AntPathRequestMatcher("/account"))
+              .authenticated());
+        
+        http
+            .authorizeRequests(request -> request.requestMatchers(
+              new AntPathRequestMatcher("/uploadimage"))
+              .authenticated());
+        
+        http
+            .authorizeRequests(request -> request.requestMatchers(
+              new AntPathRequestMatcher("/upload"))
               .authenticated());
         http
           .authorizeRequests(request -> request.requestMatchers(
               new AntPathRequestMatcher("/help"))
               .authenticated());
-		  return http.build();
+
+        //pruebas
+        http
+          .authorizeRequests(request -> request.requestMatchers(
+              new AntPathRequestMatcher("/images/**"))
+              .authenticated());
+        http
+          .authorizeRequests(request -> request.requestMatchers(
+              new AntPathRequestMatcher("/courses/**"))
+              .authenticated());
+        http
+          .authorizeRequests(request -> request.requestMatchers(
+              new AntPathRequestMatcher("/videos/**"))
+              .authenticated());
+
+        //////////////////////////////////////
+        //return
+		return http.build();
     }
 
     @Bean
@@ -93,4 +124,14 @@ class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("n")
+                .password("n")
+                .roles("regular")
+                .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
 }

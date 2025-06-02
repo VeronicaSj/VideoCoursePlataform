@@ -10,25 +10,26 @@
 		<link href="/css/variables.css" rel="stylesheet" type="text/css">
 		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
 		<link href="/css/styles.css" rel="stylesheet" type="text/css">
-		<link href="/css/index.css" rel="stylesheet" type="text/css">
 		<link th:replace="../fragments/navigation :: navigationCss">
 		
 	</head>
 	<body>
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
-			<h2 th:text="${title}"></h2>
-            <form  th:action="@{/singup}" method='POST'>
-				<div th:if="${error}" th:text="${errorMsg}"></div>
-                <label>*User Name: </label> <br>
-                <input type="text" id="username" name="username">
-                <label>*PassWord: </label><br>
-                <input type="password" id="pw" name="password">
-                <p>"*" Means it's a required file</p>
-                <button type="submit">Sing Up</button>
+            <h2 th:text="${title}"></h2>
+			<form  th:action="@{/account/changepw}" method='POST'>
+				<div class="fieldDiv">
+					<label th:text="${newPwLbl}"></label><br>
+					<input type="password" id="pw" name="newPassword" required>
+				</div>
+				<div class="fieldDiv">
+					<label th:text="${mtchPwLbl}" ></label><br>
+					<input type="password" id="pw2" name="matchingPassword" required>
+				</div>
+
+                <button type="submit" th:text="${submitBtn}"></button>
             </form>
-			<a th:href="@{/login}">I want to Log In</a>
 		</main>
-		<footer th:replace="../fragments/navigation :: footer"></footer>
 	</body>
+	<footer th:replace="../fragments/navigation :: footer"></footer>
 </html>
