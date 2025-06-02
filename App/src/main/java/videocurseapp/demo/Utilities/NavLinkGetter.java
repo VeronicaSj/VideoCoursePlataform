@@ -8,7 +8,7 @@ public class NavLinkGetter {
         res.add(new NavLink("/", ""));
 
         res.add(new NavLink("/login", "LogIn"));
-        res.add(new NavLink("/singup","SingUp"));
+        res.add(new NavLink("/signup","SignUp"));
         res.add(new NavLink("/about","About"));
         
         return res;

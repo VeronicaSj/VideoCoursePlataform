@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset ="UTF-8"/>
+		<title th:text="${title}"></title>
+		<meta name="description" th:content="${subtitle}">
+
+		<link rel="icon" type="image/png" href="resources/logo.jpg">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: navigationCss">
+		
+	</head>
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+			<div class="container-fluid" style="max-width: 600px; margin: 0 auto;">
+  <h2 class="text-center">List of Images</h2>
+
+  <div th:if="${images.size() > 0}">
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Image</th>
+          <th scope="col">File Name</th>
+          <th scope="col">Link</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="image : ${images}">
+          <td>
+            <img  th:src="@{'data:image/jpeg;base64,'+${image.getImgBase64()}}" alt="images from database" width="50%" height="50%"/>
+          </td>
+          <td>[[${image.name}]]</td>
+          <td><a th:href="@{${image.url}}">Download</a></td>
+          <td>
+            <a th:href="@{'/images/delete/' + ${image.name}}" th:fileName="${image.name}" id="btnDelete"
+              title="Delete this image" class="fa-regular fa-trash-can icon-dark btn-delete"></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div th:unless="${images.size() > 0}">
+    <span>No files found!</span>
+  </div>
+</div>
+		</main>
+	</body>
+	<footer th:replace="../fragments/navigation :: footer"></footer>
+</html>

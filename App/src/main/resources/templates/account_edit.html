@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset ="UTF-8"/>
+		<title th:text="${title}"></title>
+		<meta name="description" th:content="${subtitle}">
+
+		<link rel="icon" type="image/png" href="resources/logo.jpg">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: navigationCss">
+		
+	</head>
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+            <h2 th:text="${title}"></h2>
+			<form
+				method="post"
+				th:action="@{/images/upload/{redirect}(redirect=${redirect})}"
+				enctype="multipart/form-data">
+				<input id="input-file" type="file" name="file" accept="image/png, image/jpeg" />
+				<button class="btn btn-sm btn-outline-success float-right" type="submit">
+				Upload image
+				</button>
+				<div
+					th:if="${message != null}"
+					th:class="${classs}"
+					role="alertdialog">
+					[[${message}]]
+				</div>
+			</form>
+			
+			<form  th:action="@{/account/edit/{imgId}(imgId=${imgId})}" method='POST' th:object="${isProf}">
+				<div class="fieldDiv">
+					<input th:value="${imgId}" type="number" id="imgId" name="imgId" required hidden>
+					<div th:if="${errorEmail}" th:text="${errorEmailMsg}" class="errorDiv"></div>
+					<label>Email: </label><br>
+					<input th:value="${email}" type="email" id="email" name="email">
+				</div>
+                <button type="submit">edit</button>
+            </form>
+		</main>
+	</body>
+	<footer th:replace="../fragments/navigation :: footer"></footer>
+</html>

@@ -16,25 +16,25 @@
 	<body>
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
-			<div class="accountPgDiv">
-				<div class="sideBar" >
-						<a th:each="link : ${sideBarLinks}" 
-							class="sideBarItem"
-							th:href="@{${link.herf}}" th:text="${link.text}"></a>
-				</div>
-				<div class="columnDiv">
-					<h2 th:text="${title}"></h2>
-					<div class="rowDiv">
-						<div class="columnDiv">
-                    		<img th:if="${avatar}" th:src="@{'data:image/jpeg;base64,'+${avatar.getImgBase64()}}" th:alt="avatar" class="avatar-account" >
-						</div>
-						<div class="columnDiv">
-							<h3 th:text="${username}" ></h3>
-							<h3 th:text="${email}" ></h3>
-							<h3 th:if="${isProfessor}" th:text="${isProfessorMsg}" ></h3>
-							
+			<div class="sideBar" >
+					<a th:each="link : ${sideBarLinks}" 
+						class="sideBarItem"
+						th:href="@{${link.herf}}" th:text="${link.text}"></a>
+			</div>
+			<div class="columnDiv">
+				<h2 th:text="${title}"></h2>
+				<div th:if="${thereAreCourses}" class="courseGridDiv">
+					<div th:each="course: ${courseList}" class="courseDiv">
+						<div>
+							<img th:if="${course.img}" 
+								th:src="@{'data:image/jpeg;base64,'+${course.img.getImgBase64()}}" th:alt="course">
+							<img th:unless="${course.img}" 
+								th:src="@{'data:image/jpeg;base64,'+${defaultImg.getImgBase64()}}" th:alt="course">
 						</div>
 					</div>
+				</div>
+				<div th:if="${!thereAreCourses}">
+					<h3>There is no course yet!</h3>
 				</div>
 			</div>
 		</main>

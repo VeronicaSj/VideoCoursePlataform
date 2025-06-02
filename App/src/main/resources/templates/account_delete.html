@@ -16,27 +16,20 @@
 	<body>
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
-			<div class="accountPgDiv">
-				<div class="sideBar" >
-						<a th:each="link : ${sideBarLinks}" 
-							class="sideBarItem"
-							th:href="@{${link.herf}}" th:text="${link.text}"></a>
-				</div>
-				<div class="columnDiv">
-					<h2 th:text="${title}"></h2>
-					<div class="rowDiv">
-						<div class="columnDiv">
-                    		<img th:if="${avatar}" th:src="@{'data:image/jpeg;base64,'+${avatar.getImgBase64()}}" th:alt="avatar" class="avatar-account" >
-						</div>
-						<div class="columnDiv">
-							<h3 th:text="${username}" ></h3>
-							<h3 th:text="${email}" ></h3>
-							<h3 th:if="${isProfessor}" th:text="${isProfessorMsg}" ></h3>
-							
-						</div>
+            <h2 th:text="${title}"></h2>
+				<p th:text="${deleteAccountWarningMsg}"></p>
+				<div class="btnAreaDiv">
+					<div class="btnDiv">
+						<a th:href="@{/account/delete/confirm}" target="_blank">
+							<button th:text="${aceptBtnMsg}"></button>
+						</a>
+					</div>
+					<div class="btnDiv">
+						<a th:href="@{/account}" target="_blank">
+							<button th:text="${cancelBtnMsg}"></button>
+						</a>
 					</div>
 				</div>
-			</div>
 		</main>
 	</body>
 	<footer th:replace="../fragments/navigation :: footer"></footer>

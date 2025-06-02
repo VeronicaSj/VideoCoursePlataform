@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset ="UTF-8"/>
+		<title th:text="${title}"></title>
+		<meta name="description" th:content="${subtitle}">
+
+		<link rel="icon" type="image/png" href="resources/logo.jpg">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link href="/css/index.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: navigationCss">
+		
+	</head>
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+			<h2 th:text="${title}"></h2>
+            <form  th:action="@{/signup}" method='POST'>
+				<div class="fieldDiv">
+					<div th:if="${usernameInUseError}" th:text="${usernameInUseErrorMsg}" class="errorDiv"></div>
+					<label>User Name: </label> <br>
+					<input th:value="${username}" type="text" id="username" name="username" required>
+				</div>
+				<div class="fieldDiv">
+					<div th:if="${errorEmail}" th:text="${errorEmailMsg}" class="errorDiv"></div>
+					<label>Email: </label><br>
+					<input th:value="${email}" type="email" id="email" name="email" required>
+				</div>
+				<div class="fieldDiv">
+					<label>PassWord: </label><br>
+					<input type="password" id="pw" name="password" required>
+				</div>
+				<div class="fieldDiv">
+					<div th:if="${errorPwMatch}" th:text="${errorPwMatchMsg}" class="errorDiv"></div>
+					<label>Matching PassWord: </label><br>
+					<input type="password" id="pw2" name="matchingPassword" required>
+				</div>
+
+                <button type="submit">Sign Up</button>
+            </form>
+			<a th:href="@{/login}">I want to Log In</a>
+		</main>
+		<footer th:replace="../fragments/navigation :: footer"></footer>
+	</body>
+</html>

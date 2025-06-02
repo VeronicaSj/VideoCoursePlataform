@@ -1,24 +1,34 @@
 package videocurseapp.demo.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import videocurseapp.demo.Utilities.NavLinkGetter;
+import videocurseapp.demo.Model.User;
+import videocurseapp.demo.Service.ImageService;
+import videocurseapp.demo.Service.UserService;
 
 @Controller
 public class HomePageController {
 
-    static final NavLinkGetter NAV_LINK_GETTER= new NavLinkGetter();
+    @Autowired
+    private ImageService filesStorageService;
+
+    @Autowired
+    private UserService userService;
+    private ControllerStaticParent parent = new ControllerStaticParent();
 
     @GetMapping("/home")
     public String home( Model model ) {
-        
-        model.addAttribute("navLinkList", NAV_LINK_GETTER.getInAppNavLinkList());
-        model.addAttribute("avatar", "/resources/avatar.png");
-        model.addAttribute("title", "Home");
-        model.addAttribute("subtitle", "Home | AcadeMice");
+        User user = userService.findInUseUser();
+        if(user != null){
+            model = parent.basicModelGenerator(user, model,  "Home");
         
         return "home";
+        }
+        return "redirect:/logout";
     }
+
+    
 }

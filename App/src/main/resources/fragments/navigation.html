@@ -23,7 +23,7 @@
                 <div th:replace="../fragments/navigation :: navbar" class="navigationlist" ></div>
                 <div style="height:100%; width:100%;"></div>
                 <div class="avatar-dropdown">
-                    <img th:if="${avatar}" th:src="${avatar}" th:alt="avatar" class="avatar-icon" >
+                    <img th:if="${avatar}" th:src="@{'data:image/jpeg;base64,'+${avatar.getImgBase64()}}" th:alt="avatar" class="avatar-icon" >
                     <div class="dropdown-content">
                         <a th:href="@{/account}">Profile</a>
                         <a th:href="@{/logout}">Logout</a>

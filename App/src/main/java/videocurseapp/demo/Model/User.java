@@ -2,6 +2,7 @@ package videocurseapp.demo.Model;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -9,9 +10,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,20 +20,36 @@ import jakarta.persistence.Table;
 public class User implements UserDetails {
     // Delimiter used to split authorities string
     private static final String AUTHORITIES_DELIMITER = "::";
+    private static final String AUTH_REGULAR = "REGULAR";
+    private static final String AUTH_PROF = "::PROFE";
 
     // Unique identifier for the user
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    // Username of the user
     private String username;
 
     // Password of the user
     private String password;
 
+    private String email;
+
     // Authorities granted to the user, stored as a single string
     private String authorities;
+
+    private boolean isProfessor;
+
+    @OneToOne
+    private Image avatar;
+
+    @OneToMany
+    private List<Course> createdCourses;
+
+    public List<Course> getCreatedCourses() {
+        return createdCourses;
+    }
+
+    public void setCreatedCourses(List<Course> createdCourses) {
+        this.createdCourses = createdCourses;
+    }
 
     /**
      * Returns the authorities granted to the user.
@@ -53,6 +70,14 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    
+
+    @Override
+    public String toString() {
+        return "User [username=" + username + ", password=" + password + ", email=" + email + ", authorities="
+                + authorities + ", isProfessor=" + isProfessor + ", avatar=" + avatar + "]";
     }
 
     /**
@@ -104,14 +129,6 @@ public class User implements UserDetails {
         return AUTHORITIES_DELIMITER;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -124,20 +141,80 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
-    public User() {
+    public boolean isProfessor() {
+        return isProfessor;
     }
 
-    public User(String username, String password, String authorities) {
+    public void setProfessor(boolean isProfessor) {
+        this.isProfessor = isProfessor;
+        if(isProfessor){
+            authorities += AUTH_PROF;
+        }else{
+            authorities.replace(AUTH_PROF, "");
+        }
+        System.out.println(authorities);
+
+    }
+
+    public User() {
+        isProfessor=false;
+    }
+
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
-        this.authorities = authorities;
+        this.email = email;
+        this.authorities = AUTH_REGULAR;
+        isProfessor=false;
     }
 
-    public User(int id) {
-        this.id = id;
+    public String getEmail() {
+        return email;
     }
 
-    
-    
-    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public User(String username) {
+        this.username = username;
+    }
+
+    public Image getAvatar() {
+        Image res = Image.DEFAULT_AVATAR;
+        if(avatar!=null){
+            res = avatar;
+        }
+        return res;
+    }
+
+    public void setAvatar(Image avatar) {
+        this.avatar = avatar;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        User other = (User) obj;
+        if (username == null) {
+            if (other.username != null)
+                return false;
+        } else if (!username.equals(other.username))
+            return false;
+        return true;
+    }
+
 }

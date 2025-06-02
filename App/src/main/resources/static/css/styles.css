@@ -15,7 +15,6 @@ main {
 	flex-direction: column;
 }
 
-
 footer {
 	display: flex;
 	align-items: center;
@@ -52,7 +51,6 @@ body {
 }
 
 p {
-	width: 50%;
 	align-self: center;
 }
 
@@ -68,6 +66,7 @@ button {
 	border-radius: 20px;
 	width: 100%;
 	padding: 1%;
+	margin:1%;
 	cursor: pointer;
 }
 
@@ -111,4 +110,131 @@ textarea{
 .btnAreaDiv {
   width: 100%;
   justify-items: center;
+}
+
+.errorDiv {
+	padding: 1%;
+	background-color: var(--clr-pink);
+}
+
+.fieldDiv {
+	padding: 1%;
+}
+
+.sideBar{
+	width: 20%;
+
+	align-self: flex-start;
+	display: flex;
+	flex-direction: column;
+}
+
+.accountPgDiv{
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+}
+
+.sideBarItem{
+	width: 100%;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	align-items: center;
+	text-align: center;
+
+	font-size: 100%;
+}
+.sideBarItem:hover{
+	color: #474747;
+	background-color: #E4E4E4;
+	cursor: pointer;
+
+	width: 100%;
+	padding-top: 5%;
+	padding-bottom: 5%;
+	align-items: center;
+	text-align: center;
+
+	font-size: 100%;
+}
+
+.aboutText{
+	width: 50%;
+	height: 100%;
+	align-self: center;
+
+}
+
+.badMsgDiv{
+	padding: 1%;
+	background-color: var(--clr-pink);
+}
+.okMsgDiv{
+	padding: 1%;
+	background-color: var(--clr-blue);
+}
+
+.columnDiv {
+	display: flex;
+	flex-direction: column;
+
+	height: 100%;
+	weight: 100%;
+	
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	align-self: center;
+
+	padding: 1%;
+}
+
+.rowDiv {
+	display: flex;
+	flex-direction: row;
+
+	height: 100%;
+	weight: 100%;
+	
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	align-self: center;
+
+	padding: 1%;
+}
+
+.avatar-account {
+	max-height:400px; max-width:400px; height:auto;
+				width:auto; display: block;
+}
+
+.courseGridDiv {
+	display: grid;
+	column-gap: normal;
+
+	height: 100%;
+	weight: 100%;
+	
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	align-self: center;
+
+	padding: 1%;
+}
+
+.courseDiv {
+	display: flex;
+	flex-direction: column;
+
+	height: 100%;
+	weight: 33%;
+	
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	align-self: center;
+
+	padding: 1%;
 }
