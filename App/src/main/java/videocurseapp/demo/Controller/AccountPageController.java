@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import videocurseapp.demo.Model.User;
 import videocurseapp.demo.Service.ImageService;
@@ -20,12 +21,13 @@ import videocurseapp.demo.Utilities.NavLink;
 public class AccountPageController {
 
     @Autowired
-    private ImageService filesStorageService;
+    private ImageService imgService;
 
     @Autowired
     private UserService userService;
     private ControllerStaticParent parent = new ControllerStaticParent();
 
+    private User tempUser = new User();
     
     @GetMapping("/account")
     public String account( Model model ) {
@@ -33,7 +35,7 @@ public class AccountPageController {
         if(user != null){
             model = parent.basicModelGenerator(user, model,  "My Account");
             ArrayList<NavLink> sideBarLinks = new ArrayList<NavLink>();
-            sideBarLinks.add(new NavLink("/account/edit/"+user.getAvatar().getId(), "Edit Account"));
+            sideBarLinks.add(new NavLink("/account/edit", "Edit Account"));
 		    sideBarLinks.add(new NavLink("/account/changepw", "Change Password"));
 			sideBarLinks.add(new NavLink("/logout", "Log Out"));
 			sideBarLinks.add(new NavLink("/account/delete", "Delete Account"));
@@ -57,32 +59,23 @@ public class AccountPageController {
         return "redirect:/logout";
     }
 
-    @GetMapping("/account/edit/{pvImgId}")
-    public String accountEdit( Model model,
-            @PathVariable long pvImgId ) {
+    @GetMapping("/account/edit")
+    public String accountEdit( Model model) {
         User user = userService.findInUseUser();
         if(user != null){
             model = parent.basicModelGenerator(user, model, "Edit Account");
             model.addAttribute("redirect", "account*edit");
-            model.addAttribute("imgId", pvImgId);
-            String msg = "The image could not be uploaded";
-            String classs ="badMsgDiv";
-            if(pvImgId>-1){
-                msg = "The image was succesfully uploaded";
-                classs ="okMsgDiv";
-            }
-            model.addAttribute("message", msg);
-            model.addAttribute("classs", classs);
+            model.addAttribute("message", null);
+            model.addAttribute("classs", null);
         return "account_edit";
         }
         return "redirect:/logout";
     }
 
-    @PostMapping("/account/edit/{pvImgId}")
+    @PostMapping("/account/edit")
     public String postAccountEdit( Model model,
-            @RequestParam("imgId") long rqImgId,
-            @RequestParam("email") String email,
-            @PathVariable long pvImgId) {
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("email") String email ) {
         User user = userService.findInUseUser();
         if(user != null){
             
@@ -90,18 +83,25 @@ public class AccountPageController {
 
             String msg = "Your acount could not be updated";
 
-            if (!email.isEmpty() || new EmailValidator().isValid(email) || rqImgId>-1) {
-                    if (!email.isEmpty()){
-                        if(new EmailValidator().isValid(email)){
-                            user.setEmail(email);
-                        }else{
-                            msg = msg + ". Your new mail was not valid";
-                        }
+            if (!email.isEmpty() || !file.isEmpty()) {
+                boolean error =false;
+                if (!email.isEmpty()){
+                    if(new EmailValidator().isValid(email)){
+                        user.setEmail(email);
+                    }else{
+                        error=true;
+                        msg = msg + ". Your new mail was not valid";
                     }
-                if (rqImgId>-1){
-                    user.setAvatar(filesStorageService.load(rqImgId));
                 }
-                if (userService.update(user)) {
+                if (!file.isEmpty()){
+                    try {
+                        user.setAvatar(imgService.save(file));
+                    } catch (Exception e) {
+                        error=true;
+                        msg = msg + "Could not upload the image: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
+                    }
+                }
+                if (!error && userService.update(user)) {
                     msg="Your account was succesfully changed";
                 }
             }

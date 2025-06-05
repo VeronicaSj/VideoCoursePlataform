@@ -1,14 +1,11 @@
 package videocurseapp.demo.Model;
 
-import java.util.Base64;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 
 
 /**
@@ -23,12 +20,9 @@ public class Video{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Lob
-    private byte[] content;
-
     private String title;
 
-    public Video(String title) {
+    public Video(String title, int position) {
         this.title=title;
     }
 
@@ -43,18 +37,6 @@ public class Video{
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public byte[] getContent() {
-        return content;
-    }
-
-    public void setContent(byte[] content) {
-        this.content = content;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -62,8 +44,4 @@ public class Video{
     public void setTitle(String title) {
         this.title = title;
     }
-
-    public String getVideoBase64() {
-        return Base64.getEncoder().encodeToString(this.content);
-    }   
 }

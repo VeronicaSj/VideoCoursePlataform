@@ -1,14 +1,20 @@
 package videocurseapp.demo.Model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -17,6 +23,8 @@ import jakarta.persistence.Table;
 public class Course {
 
     public Course() {
+        
+        this.videos = new HashSet<Video>();
     }
 
     public enum Coin {
@@ -60,24 +68,37 @@ public class Course {
     @OneToOne
     private Image img;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    private Set<Video> videos;
+
+    public Set<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(Set<Video> videos) {
+        this.videos = videos;
+    }
+
     public Course(String name, String description, float price, Coin coin, Boolean isPublic) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.coin = coin;
         this.isPublic = isPublic;
+        this.videos = new HashSet<Video>();
     }
 
     public Course(long id) {
         this.id = id;
     }
 
+    public void addVideo(Video v) {
+        videos.add(v);
+    }
+
     public Image getImg() {
         return img;
     }
-
-    @ManyToMany
-    List<Category> categoryList;
 
     @ManyToMany
     List<User> alumnList;
@@ -172,14 +193,6 @@ public class Course {
 
     public void setImg(Image img) {
         this.img = img;
-    }
-
-    public List<Category> getCategoryList() {
-        return categoryList;
-    }
-
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
     }
 
     public List<User> getAlumnList() {

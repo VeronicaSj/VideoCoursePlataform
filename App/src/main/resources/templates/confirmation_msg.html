@@ -17,24 +17,9 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
             <h2 th:text="${title}"></h2>
-            <form
-				method="post"
-				th:action="@{/videos/upload}"
-				enctype="multipart/form-data">
-				<div class="fieldDiv">
-					<div th:if="${titleError}" th:text="${titleErrorMsg}" class="errorDiv"></div>
-					<label>Video title: </label> <br>
-					<input th:value="${videoTitle}" type="text" id="title" name="title" required>
-				</div>
-				<input id="input-file" type="file" name="file" accept="video/mp4" />
-				<div
-					th:if="${message != null}"
-					th:class="${classs}"
-					role="alertdialog">
-					[[${message}]]
-				</div>
-				<div>Video list will be sorted by the title</div>
-                <button type="submit" th:text="${btnUploadMsg}"></button>
+			<form th:action="@{/home}" method="GET">
+				<p th:text="${msg}"></p>
+				<button type="submit">Ok</button>
 			</form>
 		</main>
 	</body>

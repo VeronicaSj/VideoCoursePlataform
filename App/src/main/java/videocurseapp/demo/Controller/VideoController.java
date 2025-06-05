@@ -11,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import videocurseapp.demo.Model.User;
@@ -26,59 +23,13 @@ import videocurseapp.demo.Utilities.StreamBytesInfo;
 @Controller
 public class VideoController {
 
-    @Autowired
+    @Autowired 
     private VideoService videoService;
     @Autowired 
     UserService userService;
     
     private ControllerStaticParent parent = new ControllerStaticParent();
 
-    @GetMapping("/videos/upload/{redirect}")
-    public String newVideo(Model model,
-        @PathVariable String redirect) {
-        User user = (User) userService.findInUseUser();
-        model = parent.basicModelGenerator(user, model,  "Upload Video");
-        long imgId = -1; 
-        
-        model.addAttribute("btnUploadMsg", "Upload Video");
-        model.addAttribute("btnNextMsg", "Next");
-        redirect = redirect.replace('*', '/');
-        model.addAttribute("btnNextHref", "/" + redirect + "/" + imgId);
-        
-        return "video_upload";
-    }
-
-    @PostMapping("/videos/upload/{redirect}")
-    public String postNewVideo(Model model, 
-            @RequestParam("file") MultipartFile file,
-            @PathVariable String redirect) {
-        User user = (User) userService.findInUseUser();
-        model = parent.basicModelGenerator(user, model,  "Upload Video");
-        
-        long imgId = -1; 
-
-        String msg = "You have to choose a video to upload";
-        String classs ="badMsgDiv";
-        if(!file.isEmpty()){
-            model.addAttribute("imgId", imgId);
-            try {
-            videoService.saveNewVideo("randomtitle", file);
-            msg = "Uploaded the video successfully: " + file.getOriginalFilename();
-            classs ="okMsgDiv";
-            } catch (Exception e) {
-            msg = "Could not upload the video: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
-            }
-        }
-
-        model.addAttribute("message", msg);
-        model.addAttribute("classs", classs);
-        model.addAttribute("btnUploadMsg", "Upload video");
-        model.addAttribute("btnNextMsg", "Next");
-        redirect = redirect.replace('*', '/');
-        model.addAttribute("btnNextHref", "/" + redirect + "/" + imgId);
-        
-        return "video_upload";
-    }
     
     @GetMapping("/videos/watch/{id}")
     public String watchVideo(Model model,
@@ -88,11 +39,6 @@ public class VideoController {
         model.addAttribute("videosrc", "/video/"+id);
         return "video_watch";
     }
-
-    // @GetMapping(value = "/video/{id}" , produces = "video/mp4")
-    // public Mono<Resource> getVideo(@PathVariable long id) {
-    //     return videoService.getVideoStreaming(id);
-    // }
 
     @GetMapping("/video/{id}")
     public ResponseEntity<StreamingResponseBody> streamVideo(

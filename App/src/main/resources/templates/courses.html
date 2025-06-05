@@ -23,14 +23,16 @@
 			</div>
 			<div class="columnDiv">
 				<h2 th:text="${title}"></h2>
-				<div th:if="${thereAreCourses}" class="courseGridDiv">
+				<div class="courseGridDiv">
 					<div th:each="course: ${courseList}" class="courseDiv">
 						<div>
 							<img th:if="${course.img}" 
-								th:src="@{'data:image/jpeg;base64,'+${course.img.getImgBase64()}}" th:alt="course">
+								th:src="@{'data:image/jpeg;base64,'+${course.img.getImgBase64()}}" alt="course" class="image">
 							<img th:unless="${course.img}" 
-								th:src="@{'data:image/jpeg;base64,'+${defaultImg.getImgBase64()}}" th:alt="course">
+								th:src="@{'data:image/jpeg;base64,'+${defaultImg.getImgBase64()}}" alt="course" class="image">
 						</div>
+						<h3 th:text="${course.name}"></h3>
+						<p th:text="${course.description}"></p>
 					</div>
 				</div>
 				<div th:if="${!thereAreCourses}">

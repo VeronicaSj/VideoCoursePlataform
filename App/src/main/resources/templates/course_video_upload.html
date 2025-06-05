@@ -17,25 +17,34 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
             <h2 th:text="${title}"></h2>
-            <form
-				method="post"
-				th:action="@{/videos/upload}"
-				enctype="multipart/form-data">
-				<div class="fieldDiv">
-					<div th:if="${titleError}" th:text="${titleErrorMsg}" class="errorDiv"></div>
-					<label>Video title: </label> <br>
-					<input th:value="${videoTitle}" type="text" id="title" name="title" required>
+
+			<div class="columnDiv" th:if="${videolist}">
+				<table >
+					<thead >
+						<tr>
+							<th scope="col">Video Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="video : ${videolist}">
+							<td><a th:href="@{${video.id}}" >[[${video.title}]]</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+            
+            <div class="btnAreaDiv">
+                <div class="btnDiv">
+					<a th:href="${btnAddNewHref}" target="_blank">
+						<button type="button" th:text="${btnAddNewMsg}"></button>
+					</a>
 				</div>
-				<input id="input-file" type="file" name="file" accept="video/mp4" />
-				<div
-					th:if="${message != null}"
-					th:class="${classs}"
-					role="alertdialog">
-					[[${message}]]
+				<div class="btnDiv">
+					<a th:href="${btnNextHref}" target="_blank">
+						<button type="button" th:text="${btnNextMsg}"></button>
+					</a>
 				</div>
-				<div>Video list will be sorted by the title</div>
-                <button type="submit" th:text="${btnUploadMsg}"></button>
-			</form>
+			</div>
 		</main>
 	</body>
 	<footer th:replace="../fragments/navigation :: footer"></footer>

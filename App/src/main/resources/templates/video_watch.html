@@ -17,7 +17,7 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
             <h2 th:text="${title}"></h2>
-            <video th:src="${videosrc}" width="720px" height="480px" controls preload="none">
+            <video th:src="${videosrc}" width="720px" height="480px" controls preload="none" muted autoplay="true">
             </video>
 		</main>
 	</body>

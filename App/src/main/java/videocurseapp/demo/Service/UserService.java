@@ -48,10 +48,10 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean changePw(User user){
+
         boolean res = false;
-        System.out.println(user.toString());
+        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         User suser = userRepo.save(user);
-        System.out.println(suser.toString());
         if(suser.equals(user)){
             res=true;
         }

@@ -35,8 +35,8 @@ public class VideoService {
 
     Path root = Path.of( "src\\..\\..\\videos");
 
-    public void saveNewVideo(String title, MultipartFile videofile) {
-        Video video = videoRepo.save(new Video(title));
+    public Video saveNewVideo(String title, MultipartFile videofile) {
+        Video video = videoRepo.save(new Video(title, 0));
         System.out.println(video.getId());
         try {
             Path file = Path.of(root.toString(), video.getId()+".mp4");
@@ -46,6 +46,8 @@ public class VideoService {
         } catch (IOException ex) {
             throw new IllegalStateException(ex);
         }
+
+        return video;
     }
 
     public Optional<StreamBytesInfo> getStreamBytes(Long id, HttpRange range) {
