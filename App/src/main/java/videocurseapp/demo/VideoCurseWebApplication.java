@@ -10,8 +10,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import videocurseapp.demo.Model.Image;
 import videocurseapp.demo.Model.User;
+import videocurseapp.demo.Repository.CourseRepository;
 import videocurseapp.demo.Repository.ImageRepository;
 import videocurseapp.demo.Repository.UserRepository;
+import videocurseapp.demo.Repository.VideoRepository;
 
 @SpringBootApplication
 public class VideoCurseWebApplication implements  CommandLineRunner{
@@ -29,6 +31,10 @@ public class VideoCurseWebApplication implements  CommandLineRunner{
 	private ImageRepository imageRepository;
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private  CourseRepository courseRepository;
+	@Autowired
+	private VideoRepository videoRepository;
 
 	public void pruebas(){
 		Image img = Image.DEFAULT_AVATAR;
@@ -39,5 +45,11 @@ public class VideoCurseWebApplication implements  CommandLineRunner{
 		
 		userRepository.save(user);
 		System.out.println(userRepository.save(user));
+
+		
+		imageRepository.deleteAll();
+		// videoRepository.deleteAll();
+		// courseRepository.deleteAll();
+		 userRepository.deleteAll();
 	}
 }

@@ -23,7 +23,6 @@ import jakarta.persistence.Table;
 public class Course {
 
     public Course() {
-        
         this.videos = new HashSet<Video>();
     }
 
@@ -65,11 +64,14 @@ public class Course {
     @Column(name="is_holded")
     Boolean isHolded;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Image img;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Video> videos;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<User> alumnList;
 
     public Set<Video> getVideos() {
         return videos;
@@ -99,9 +101,6 @@ public class Course {
     public Image getImg() {
         return img;
     }
-
-    @ManyToMany
-    List<User> alumnList;
 
     public long getId() {
         return id;
@@ -201,6 +200,14 @@ public class Course {
 
     public void setAlumnList(List<User> alumnList) {
         this.alumnList = alumnList;
+    }
+
+    @Override
+    public String toString() {
+        return "Course [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", coin="
+                + coin + ", punctuation=" + punctuation + ", creationDate=" + creationDate + ", lastUpdate="
+                + lastUpdate + ", deletionDate=" + deletionDate + ", isPublic=" + isPublic + ", isHolded=" + isHolded
+                + ", img=" + img + ", videos=" + videos + ", alumnList=" + alumnList + "]";
     }
 
     

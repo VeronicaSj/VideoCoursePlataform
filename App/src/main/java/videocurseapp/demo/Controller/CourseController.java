@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import videocurseapp.demo.Model.Course;
 import videocurseapp.demo.Model.User;
 import videocurseapp.demo.Model.Video;
+import videocurseapp.demo.Repository.CourseRepository;
 import videocurseapp.demo.Service.CourseService;
 import videocurseapp.demo.Service.ImageService;
 import videocurseapp.demo.Service.UserService;
@@ -42,7 +43,8 @@ public class CourseController {
         User user = (User) userService.findInUseUser();
         if(user != null){
             model = parent.basicModelGenerator(user, model,  "My Courses");
-        
+            
+            System.out.println("tempCourse 1"+tempCourse);
             //side bar options
             ArrayList<NavLink> sideBarLinks = new ArrayList<NavLink>();
             sideBarLinks.add(new NavLink("/courses/upload", "Upload Course"));
@@ -55,6 +57,7 @@ public class CourseController {
                 thereAre = true;
             }
             model.addAttribute("thereAreCourses", thereAre);
+
             return "courses";
         }
         return "redirect:/logout";
@@ -162,7 +165,7 @@ public class CourseController {
             Course.Coin enumCoin = Course.Coin.valueOf(coin.toUpperCase());
             boolean boolIspublic = ispublic.equals("Public");
             tempCourse = new Course(name, description, price, enumCoin, boolIspublic);
-
+            System.out.println("tempCourse 2"+tempCourse);
             return "redirect:/images/upload/courses*upload*img";
         }
         return "redirect:/logout";
@@ -176,7 +179,7 @@ public class CourseController {
             model = parent.basicModelGenerator(user, model,  "Upload Course - Manage Videos");
             //add image to the temporal course
             tempCourse.setImg(imageService.load(imgId));
-
+            System.out.println("tempCourse 3"+tempCourse);
             return "redirect:/courses/upload/video";
         }
         return "redirect:/logout";
@@ -237,6 +240,8 @@ public class CourseController {
             }
         }
 
+        System.out.println("tempCourse 4"+tempCourse);
+
         if(!titleError && !videoError){
             return "redirect:/courses/upload/video";
         }
@@ -274,9 +279,11 @@ public class CourseController {
         if(user != null){
             model = parent.basicModelGenerator(user, model,  "Upload Course - Confirmation");
             String msg = "Course could not be uploaded";
-            if(courseService.save(tempCourse)){
-                msg = "Course uploaded";
-            }
+            user.addcreatedCourse(tempCourse);
+            if(userService.update(user)){
+                msg = "Course uploaded"; }
+            System.out.println("tempCourse 5"+tempCourse);
+            tempCourse=null;
             model.addAttribute("msg", msg);
             return "confirmation_msg";
         }

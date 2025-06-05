@@ -1,5 +1,6 @@
 package videocurseapp.demo.Model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -9,7 +10,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -40,7 +43,7 @@ public class User implements UserDetails {
     @OneToOne
     private Image avatar;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Course> createdCourses;
 
     public List<Course> getCreatedCourses() {
@@ -50,6 +53,15 @@ public class User implements UserDetails {
     public void setCreatedCourses(List<Course> createdCourses) {
         this.createdCourses = createdCourses;
     }
+
+    public void addcreatedCourse(Course c) {
+        if(this.createdCourses==null){
+            createdCourses = new ArrayList<Course>();
+        }
+        this.createdCourses.add(c);
+    }
+
+    
 
     /**
      * Returns the authorities granted to the user.
