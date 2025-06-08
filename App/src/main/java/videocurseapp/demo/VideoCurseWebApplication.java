@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import videocurseapp.demo.Model.Image;
-import videocurseapp.demo.Model.User;
 import videocurseapp.demo.Repository.CourseRepository;
 import videocurseapp.demo.Repository.ImageRepository;
 import videocurseapp.demo.Repository.UserRepository;
@@ -41,15 +39,6 @@ public class VideoCurseWebApplication implements  CommandLineRunner{
 		if(((ArrayList) imageRepository.findImageByName("DEFAULT_AVATAR")).size()!=0){
 			imageRepository.save(img);
 		}
-		User user = new User("n", new BCryptPasswordEncoder().encode("n"), "n@nm.nm");
 		
-		userRepository.save(user);
-		System.out.println(userRepository.save(user));
-
-		
-		imageRepository.deleteAll();
-		// videoRepository.deleteAll();
-		// courseRepository.deleteAll();
-		 userRepository.deleteAll();
 	}
 }

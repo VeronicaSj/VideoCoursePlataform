@@ -38,6 +38,7 @@ public class HallPagesController {
 
     @GetMapping("/login")
     public String logIn( Model model) {
+        
         model.addAttribute("navLinkList", parent.NAV_LINK_GETTER.getHallNavLinkList());
         model.addAttribute("title", "Log In");
         model.addAttribute("subtitle", "Log In | AcadeMice");
@@ -129,7 +130,7 @@ public class HallPagesController {
         
         userService.create(username, password, email);
 
-        return  "redirect:/home";
+        return  "redirect:/login";
     }
 
     @GetMapping("/logout")

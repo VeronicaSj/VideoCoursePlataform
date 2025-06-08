@@ -1,5 +1,6 @@
 package videocurseapp.demo.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import videocurseapp.demo.Model.Course;
 import videocurseapp.demo.Model.User;
 import videocurseapp.demo.Repository.UserRepository;
 
@@ -74,5 +76,12 @@ public class UserService implements UserDetailsService {
         user = (User) userRepo.findByUsername(user.getUsername());
         System.out.println(user);
         return user;
+    }
+
+    public List<Course> getHelpCourses(){
+        List<Course> res = null;
+        User user = (User) userRepo.findByUsername("helpAcademice");
+        res = user.getCreatedCourses();
+        return res;
     }
 }

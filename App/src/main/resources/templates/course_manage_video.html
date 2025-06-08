@@ -17,34 +17,24 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
             <h2 th:text="${title}"></h2>
-
-			<div class="columnDiv" th:if="${videolist}">
-				<table >
-					<thead >
-						<tr>
-							<th scope="col">Video Name</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="video : ${videolist}">
-							<td><a th:href="@{${video.id}}" >[[${video.title}]]</a></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-            
-            <div class="btnAreaDiv">
-                <div class="btnDiv">
-					<a th:href="${btnAddNewHref}" target="_blank">
-						<button type="button" th:text="${btnAddNewMsg}"></button>
-					</a>
+			<form >
+				<div class="columnDiv" th:if="${videolist}">
+					<table >
+						<thead >
+							<tr>
+								<th scope="col">Video Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="video : ${videolist}">
+								<td><a th:href="@{${video.id}}" >[[${video.title}]]</a></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-				<div class="btnDiv">
-					<a th:href="${btnNextHref}" target="_blank">
-						<button type="button" th:text="${btnNextMsg}"></button>
-					</a>
-				</div>
-			</div>
+				<button type="submit" th:formaction="${btnAddNewHref}">Add New Video</button>
+				<button type="submit" th:formaction="${btnNextHref}">Next</button>
+			</form>
 		</main>
 	</body>
 	<footer th:replace="../fragments/navigation :: footer"></footer>

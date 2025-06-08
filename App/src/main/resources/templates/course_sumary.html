@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset ="UTF-8"/>
+		<title th:text="${title}"></title>
+		<meta name="description" th:content="${subtitle}">
+
+		<link rel="icon" type="image/png" href="resources/logo.jpg">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: navigationCss">
+		
+	</head>
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+            <h2 th:text="${title}"></h2>
+
+			<div class="columnDiv">
+				<img th:if="${img}" th:src="@{'data:image/jpeg;base64,'+${img.getImgBase64()}}" alt="Course Image" class="image">
+				<div class="rowDiv">
+					<p><b>Course Title: </b></p>
+					<p th:text="${course.getName()}"></p>
+				</div>
+				<div class="rowDiv">
+					<p><b>Description: </b></p>
+					<p th:text="${course.getDescription()}"></p>
+				</div>
+				<div class="rowDiv">
+					<p><b>Price: </b></p>
+					<p th:text="${course.getPrice()}"></p>
+				</div>
+				<div class="rowDiv">
+					<p><b>Price coin: </b></p>
+					<p th:text="${course.getCoin()}"></p>
+				</div>
+				<div class="rowDiv">
+					<p><b>Is public: </b></p>
+					<p th:text="${course.getIsPublic()}"></p>
+				</div>
+					
+				<div class="columnDiv" th:if="${course.getVideos()}">
+					<table >
+						<thead >
+							<tr>
+								<th scope="col">Video List</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="video : ${course.getVideos()}">
+								<td>[[${video.title}]]</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<form  th:action="@{/courses/sumary}" method='POST'>
+					<button th:text="${btnNextMsg}" type="submit"></button>
+				</form>
+			</div>
+		</main>
+	</body>
+	<footer th:replace="../fragments/navigation :: footer"></footer>
+</html>

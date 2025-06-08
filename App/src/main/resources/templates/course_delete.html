@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+	<head>
+		<meta charset ="UTF-8"/>
+		<title th:text="${title}"></title>
+		<meta name="description" th:content="${subtitle}">
+
+		<link rel="icon" type="image/png" href="resources/logo.jpg">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: navigationCss">
+		
+	</head>
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+            <h2 th:text="${title}"></h2>
+			<form th:action="@{/courses/delete/{id}(id=${course.id})}" method="POST">
+				<p th:text="${msg}"></p>
+				<div class="courseDiv">
+                        <h3 th:text="${course.name}"></h3>
+                        <div>
+                            <img th:if="${course.img}" 
+                                th:src="@{'data:image/jpeg;base64,'+${course.img.getImgBase64()}}" alt="course" class="image">
+                            <img th:unless="${course.img}" 
+                                th:src="@{'data:image/jpeg;base64,'+${defaultImg.getImgBase64()}}" alt="course" class="image">
+                        </div>
+                        <p th:text="${course.description}"></p>
+					</div>
+                
+                <button type="submit" >
+                        delete
+                    </button>
+					<button type="submit" th:formaction="@{/courses}">
+                        cancel
+                    </button>
+			</form>
+		</main>
+	</body>
+	<footer th:replace="../fragments/navigation :: footer"></footer>
+</html>

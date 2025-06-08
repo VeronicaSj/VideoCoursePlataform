@@ -32,6 +32,21 @@ public class ImageService {
     return res;
   }
 
+  public void delete(long id) {
+    Optional<Image> opt = imageRepository.findById(id);
+    if(opt.isPresent()){
+      imageRepository.delete(opt.get());
+    }
+  }
+
+  public void delete(Image img) {
+    if(img!=null){
+      imageRepository.delete(img);
+    }
+      
+  }
+  
+
   public Image load(long id) {
     Image res = null;
     Optional<Image> opt = imageRepository.findById(id);

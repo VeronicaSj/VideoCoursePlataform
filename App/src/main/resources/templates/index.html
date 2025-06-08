@@ -27,13 +27,9 @@
 
 			<p th:text="${description}"></p>
 
-			<div class="btnAreaDiv">
-				<div class="btnDiv">
-					<a href="/login" target="_blank">
-						<button type="button">Start</button>
-					</a>
-				</div>
-			</div>
+			<form >
+				<button type="submit" th:formaction="@{/login}">Start</button>
+			</form>
 		</main>
 		<footer th:replace="../fragments/navigation :: footer"></footer>
 	</body>

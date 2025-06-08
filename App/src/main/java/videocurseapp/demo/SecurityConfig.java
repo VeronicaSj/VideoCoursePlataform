@@ -72,11 +72,11 @@ class SecurityConfig {
         http
             .authorizeRequests(request -> request.requestMatchers(
                 new AntPathRequestMatcher("/signup/**"))
-                .anonymous());
+                .permitAll());
         http
             .authorizeRequests(request -> request.requestMatchers(
                 new AntPathRequestMatcher("/about"))
-                .anonymous());
+                .permitAll());
         http
             .authorizeRequests(request -> request.requestMatchers(
                 new AntPathRequestMatcher("/home"))

@@ -244,5 +244,24 @@ textarea{
 
 .image{
 	max-height:400px; max-width:400px; height:auto;
-				width:auto; display: block;
+	width:auto; display: block;
+	align-self: center;
+	margin-left: auto;
+  margin-right: auto;
+
+}
+
+.videoWatch{
+	display: flex;
+	flex-direction: row;
+
+	height: 100%;
+	weight: 100%;
+/* 	
+	align-items: center;
+	text-align: center;
+	justify-content: center;
+	align-self: center; */
+
+	padding: 1%;
 }

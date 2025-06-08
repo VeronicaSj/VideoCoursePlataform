@@ -2,6 +2,7 @@ package videocurseapp.demo.Controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,231 +64,112 @@ public class CourseController {
         return "redirect:/logout";
     }
 
-    @GetMapping("/courses/upload")
-    public String coursesUpload( Model model) {
+    @GetMapping("/courses/creator/{id}")
+    public String coursesDetaill( Model model, 
+            @PathVariable long id) {
         User user = (User) userService.findInUseUser();
         if(user != null){
-            model = parent.basicModelGenerator(user, model,  "Upload Course");
-
-            boolean validName = true;
-            boolean validDescription = true;
-            boolean validPrice = true;
-            boolean validCoin = true;
-            boolean validIsPublic = true;
-
-            model.addAttribute("nameLbl", "Title");
-            model.addAttribute("descriptionLbl", "Description");
-            model.addAttribute("priceLbl", "Price");
-            model.addAttribute("coinLbl", "Coin");
-            model.addAttribute("isPublicLbl", "Visibility");
-
-            model.addAttribute("nameValue", "");
-            model.addAttribute("descriptionValue", "");
-            model.addAttribute("priceValue", 0);
-                model.addAttribute("coinValueEUR", true);
-                model.addAttribute("coinValueUSD", false);
-                model.addAttribute("isPublicValuePublic", true);
-                model.addAttribute("isPublicValuePrivated", false);
-
-            model.addAttribute("nameError", !validName);
-            model.addAttribute("descriptionError", !validDescription);
-            model.addAttribute("priceError", !validPrice);
-            model.addAttribute("coinError", !validCoin);
-            model.addAttribute("isPublicError", !validIsPublic);
-
-            model.addAttribute("nameErrorMsg", "Invalid name");
-            model.addAttribute("descriptionErrorMsg", "Invalid description");
-            model.addAttribute("priceErrorMsg", "Invalid price");
-            model.addAttribute("coinErrorMsg", "Invalid coin");
-            model.addAttribute("isPublicErrorMsg", "Invalid visibility");
-
-            model.addAttribute("btnNextMsg", "Next");
-            
-            return "courses_upload";
-        }
-        return "redirect:/logout";
-    }
-
-
-    @PostMapping("/courses/upload")
-    public String postCoursesUpload( Model model,
-            @RequestParam("name") String name,
-            @RequestParam("description") String description,
-            @RequestParam("price") float price, 
-            @RequestParam("coin") String coin,
-            @RequestParam("ispublic") String ispublic) {
-        User user = (User) userService.findInUseUser();
-        if(user != null){
-            model = parent.basicModelGenerator(user, model,  "Upload Course");
-            
-            System.out.println("name " + name + " description " + " price " + price + " coin " + coin + " ispublic " + ispublic );
-            //validate data 
-            boolean validName = name.trim().length()>0 ;
-            boolean validDescription = description.trim().length()>0;
-            boolean validPrice = price>=0;
-            boolean validCoin = coin.equals("EUR") || coin.equals("USD");
-            boolean validIsPublic = ispublic.equals("Public") || ispublic.equals("Privated");
-
-            boolean validDataInput = validName && validDescription && validPrice && validCoin && validIsPublic;
-            if (!validDataInput) {
-                model.addAttribute("nameLbl", "Title");
-                model.addAttribute("descriptionLbl", "Description");
-                model.addAttribute("priceLbl", "Price");
-                model.addAttribute("coinLbl", "Coin");
-                model.addAttribute("isPublicLbl", "Visibility");
-
-                model.addAttribute("nameValue", name);
-                model.addAttribute("descriptionValue", description);
-                model.addAttribute("priceValue", price);
-                model.addAttribute("coinValueEUR", coin.equals("EUR"));
-                model.addAttribute("coinValueUSD", coin.equals("USD"));
-                model.addAttribute("isPublicValuePublic", ispublic.equals("Public"));
-                model.addAttribute("isPublicValuePrivated", ispublic.equals("Privated"));
-
-                model.addAttribute("nameError", !validName);
-                model.addAttribute("descriptionError", !validDescription);
-                model.addAttribute("priceError", !validPrice);
-                model.addAttribute("coinError", !validCoin);
-                model.addAttribute("isPublicError", !validIsPublic);
-
-                model.addAttribute("nameErrorMsg", "Invalid name");
-                model.addAttribute("descriptionErrorMsg", "Invalid description");
-                model.addAttribute("priceErrorMsg", "Invalid price");
-                model.addAttribute("coinErrorMsg", "Invalid coin");
-                model.addAttribute("isPublicErrorMsg", "Invalid visibility");
-
-                model.addAttribute("btnNextMsg", "Next");
-
-                return "courses_upload";
+            Course course = courseService.find(id);
+            model = parent.basicModelGenerator(user, model, "Course not foud!");
+            if (course!=null) {
+                model.addAttribute("title", course.getName());
+                model.addAttribute("img", course.getImg());
             }
 
-            //save somewhere course data
-            Course.Coin enumCoin = Course.Coin.valueOf(coin.toUpperCase());
-            boolean boolIspublic = ispublic.equals("Public");
-            tempCourse = new Course(name, description, price, enumCoin, boolIspublic);
-            System.out.println("tempCourse 2"+tempCourse);
-            return "redirect:/images/upload/courses*upload*img";
+            model.addAttribute("course", course);
+            
+            model.addAttribute("btnNextMsg", "Update course");
+            return "course_detaill_professor";
         }
         return "redirect:/logout";
     }
 
-    @GetMapping("/courses/upload/img/{imgId}")
-    public String coursesUploadImg( Model model, 
-            @PathVariable long imgId) {
+    @GetMapping("/courses/delete/{id}")
+    public String coursesDelete( Model model, 
+            @PathVariable long id) {
         User user = (User) userService.findInUseUser();
         if(user != null){
-            model = parent.basicModelGenerator(user, model,  "Upload Course - Manage Videos");
-            //add image to the temporal course
-            tempCourse.setImg(imageService.load(imgId));
-            System.out.println("tempCourse 3"+tempCourse);
-            return "redirect:/courses/upload/video";
+            Course course = courseService.find(id);
+            model = parent.basicModelGenerator(user, model, "Delete Course");
+            if (course!=null) {
+                model.addAttribute("course", course);
+                model.addAttribute("msg", "Are you sure you want to delete this course?");
+            }
+            return "course_delete";
         }
         return "redirect:/logout";
     }
 
-    @GetMapping("/courses/upload/video")
-    public String coursesUploadVideo( Model model) {
+    @PostMapping("/courses/delete/{id}")
+    public String coursesDeletePOST( Model model, 
+            @PathVariable long id) {
         User user = (User) userService.findInUseUser();
         if(user != null){
-            model = parent.basicModelGenerator(user, model,  "Upload Course - Manage Videos");
-
-            // model.addAttribute("videolist", courseService.listVideos(course));
-            model.addAttribute("btnAddNewMsg", "Add New Video");
-            model.addAttribute("btnAddNewHref", "/videos/upload");
-            model.addAttribute("btnNextMsg", "Next");
-            model.addAttribute("btnNextHref", "/courses/upload/sumary");
-            System.out.println(tempCourse.getVideos());
-            model.addAttribute("videolist", courseService.listVideos(tempCourse));
-            return "course_video_upload";
-
+            Course course = courseService.find(id);
+            user.getCreatedCourses().remove(course);
+            userService.update(user);
+            return "redirect:/courses";
         }
         return "redirect:/logout";
     }
 
-    @GetMapping("/videos/upload")
-    public String newVideo(Model model) {
-        User user = (User) userService.findInUseUser();
-        model = parent.basicModelGenerator(user, model,  "Upload Video");
-        model.addAttribute("btnUploadMsg", "Upload Video");
-        
-        return "video_upload";
-    }
 
-    @PostMapping("/videos/upload")
-    public String postNewVideo(Model model, 
-            @RequestParam("file") MultipartFile file,
-            @RequestParam("title") String title) {
+    @GetMapping("/courses/watch/{idcourse}")
+    public String courseshelpDetaill( Model model, 
+            @PathVariable long idcourse) {
         User user = (User) userService.findInUseUser();
-        model = parent.basicModelGenerator(user, model,  "Upload Video");
-        
-        String msg = "You have to choose a video to upload";
-        boolean titleError=false;
-        boolean videoError=true;
-        String titleErrorMsg="Invalid Title";
+        if(user != null){
+            Course course = courseService.find(idcourse);
+            model = parent.basicModelGenerator(user, model, "Course not foud!");
+            long firstVideoid=-1;
+            if (course!=null) {
+                model.addAttribute("title", course.getName());
 
-        String classs ="badMsgDiv";
-        if (title!=null && title.trim().length()>0) {
-            if(!file.isEmpty()){
-                try {
-                    Video newVideo = videoService.saveNewVideo(title, file);
-                    tempCourse.addVideo(newVideo);
-                    msg = "Uploaded the video successfully: " + file.getOriginalFilename();
-                    classs ="okMsgDiv";
-                    videoError=false;
-                } catch (Exception e) {
-                    msg = "Could not upload the video: " + file.getOriginalFilename() + ". Error: " + e.getMessage();
+                ArrayList<NavLink> sideBarLinks = new ArrayList<NavLink>();
+
+                ArrayList<Video> videolist = courseService.listVideos(course);
+                if(videolist!=null && videolist.size()>0){
+                    for (Video v : videolist) {
+                        sideBarLinks.add(new NavLink("/courses/watch/"+idcourse+"/"+v.getId(), v.getTitle()));
+                    }
+                    Video firstVideo = videolist.getFirst();
+                    firstVideoid=firstVideo.getId();
                 }
+                
+                model.addAttribute("sideBarLinks", sideBarLinks);
             }
-        }
 
-        System.out.println("tempCourse 4"+tempCourse);
-
-        if(!titleError && !videoError){
-            return "redirect:/courses/upload/video";
-        }
-
-        model.addAttribute("titleError", titleError);
-        model.addAttribute("titleErrorMsg", titleErrorMsg);
-        model.addAttribute("videoTitle", "");
-        model.addAttribute("message", msg);
-        model.addAttribute("classs", classs);
-        model.addAttribute("btnUploadMsg", "Upload video");
-        
-        return "video_upload";
-    }
-
-    @GetMapping("/courses/upload/sumary")
-    public String courseSumary( Model model ) {
-        User user = (User) userService.findInUseUser();
-        if(user != null){
-            model = parent.basicModelGenerator(user, model,  "Upload Course - Sumary");
-            //add image to the temporal course
-            System.out.println("image: " + tempCourse.getImg());
-
-            model.addAttribute("img", tempCourse.getImg());
-            model.addAttribute("course", tempCourse);
+            model.addAttribute("course", course);
+            return "redirect:/courses/watch/"+idcourse+"/"+firstVideoid;
             
-            model.addAttribute("btnNextMsg", "Upload course");
-            return "course_video_upload_sumary";
         }
         return "redirect:/logout";
     }
 
-    @PostMapping("/courses/upload/sumary")
-    public String postCourseSumary(Model model) {
+    @GetMapping("/courses/watch/{idcourse}/{idvideo}")
+    public String courseshelpDetaill( Model model, 
+            @PathVariable long idcourse,
+            @PathVariable long idvideo) {
         User user = (User) userService.findInUseUser();
         if(user != null){
-            model = parent.basicModelGenerator(user, model,  "Upload Course - Confirmation");
-            String msg = "Course could not be uploaded";
-            user.addcreatedCourse(tempCourse);
-            if(userService.update(user)){
-                msg = "Course uploaded"; }
-            System.out.println("tempCourse 5"+tempCourse);
-            tempCourse=null;
-            model.addAttribute("msg", msg);
-            return "confirmation_msg";
+            Course course = courseService.find(idcourse);
+            model = parent.basicModelGenerator(user, model, "Course not foud!");
+            if (course!=null) {
+                model.addAttribute("title", course.getName());
+                
+                ArrayList<NavLink> sideBarLinks = new ArrayList<NavLink>();
+
+                ArrayList<Video> videolist = courseService.listVideos(course);
+                for (Video v : videolist) {
+                    sideBarLinks.add(new NavLink("/courses/watch/"+idcourse+"/"+v.getId(), v.getTitle()));
+                }
+                model.addAttribute("sideBarLinks", sideBarLinks);
+                
+            }
+            
+            model.addAttribute("videosrc", "/video/"+idvideo);
+            return "course_watch";
         }
         return "redirect:/logout";
     }
-    
 }

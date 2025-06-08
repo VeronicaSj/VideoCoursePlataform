@@ -16,8 +16,26 @@
 	<body>
 		<div th:replace="../fragments/navigation :: header"></div>
 		<main>
-			<h2 th:text="${title}"></h2>
-            
+			<div class="columnDiv">
+				<h2 th:text="${title}"></h2>
+				<div class="courseGridDiv">
+					<div th:each="course: ${courseList}" class="courseDiv">
+						<a th:href="@{/courses/watch/{idcourse}(idcourse=${course.id})}">
+							<h3 th:text="${course.name}"></h3>
+							<div>
+								<img th:if="${course.img}" 
+									th:src="@{'data:image/jpeg;base64,'+${course.img.getImgBase64()}}" alt="course" class="image">
+								<img th:unless="${course.img}" 
+									th:src="@{'data:image/jpeg;base64,'+${defaultImg.getImgBase64()}}" alt="course" class="image">
+							</div>
+							<p th:text="${course.description}"></p>
+						</a>
+					</div>
+				</div>
+				<div th:if="${!thereAreCourses}">
+					<h3>There is no course yet!</h3>
+				</div>
+			</div>
 		</main>
 	</body>
 	<footer th:replace="../fragments/navigation :: footer"></footer>

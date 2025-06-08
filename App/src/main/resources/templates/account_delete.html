@@ -17,19 +17,12 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
             <h2 th:text="${title}"></h2>
-				<p th:text="${deleteAccountWarningMsg}"></p>
-				<div class="btnAreaDiv">
-					<div class="btnDiv">
-						<a th:href="@{/account/delete/confirm}" target="_blank">
-							<button th:text="${aceptBtnMsg}"></button>
-						</a>
-					</div>
-					<div class="btnDiv">
-						<a th:href="@{/account}" target="_blank">
-							<button th:text="${cancelBtnMsg}"></button>
-						</a>
-					</div>
-				</div>
+			<p th:text="${deleteAccountWarningMsg}"></p>
+				
+			<form >
+				<button type="submit" th:formaction="@{/account/delete/confirm}">Delete</button>
+				<button type="submit" th:formaction="@{/account}">Cancel</button>
+			</form>
 		</main>
 	</body>
 	<footer th:replace="../fragments/navigation :: footer"></footer>

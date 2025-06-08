@@ -1,10 +1,13 @@
 package videocurseapp.demo.Controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import videocurseapp.demo.Model.Course;
 import videocurseapp.demo.Model.User;
 import videocurseapp.demo.Service.UserService;
 
@@ -20,6 +23,14 @@ public class HelpPageController {
         User user = (User) userService.findInUseUser();
         if(user != null){
             model = parent.basicModelGenerator(user, model,  "Help");
+            
+            List<Course> courses = userService.getHelpCourses();
+            model.addAttribute("courseList", courses);
+            boolean thereAre = false;
+            if (courses!=null && courses.size()>0) {
+                thereAre = true;
+            }
+            model.addAttribute("thereAreCourses", thereAre);
 
             return "help";
         }

@@ -2,6 +2,7 @@ package videocurseapp.demo.Service;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,20 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
-    public boolean save(Course c){
+    public Course save(Course c){
+        Course res = null;
+        if(c!=null){
+            res=courseRepository.save(c);
+        }
+        return res;
+    }
+
+    public boolean delete(Course c){
         boolean res = false;
         if(c!=null){
-            courseRepository.save(c);
+            courseRepository.delete(c);
             res=true;
         }
-        
         return res;
     }
     
@@ -39,6 +47,15 @@ public class CourseService {
             });
         }
         System.out.println(res);
+        return res;
+    }
+
+    public Course find(long id){
+        Course res=null;
+        Optional opt = courseRepository.findById(id);
+        if(opt.isPresent()){
+            res=(Course)opt.get();
+        }
         return res;
     }
 }

@@ -25,7 +25,7 @@
 				<h2 th:text="${title}"></h2>
 				<div class="courseGridDiv">
 					<div th:each="course: ${courseList}" class="courseDiv">
-						<a href="google.com">
+						<a th:href="@{/courses/creator/{id}(id=${course.id})}">
 							<h3 th:text="${course.name}"></h3>
 							<div>
 								<img th:if="${course.img}" 

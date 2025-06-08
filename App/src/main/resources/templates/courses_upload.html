@@ -17,7 +17,7 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
 			<h2 th:text="${title}"></h2>
-            <form  th:action="@{/courses/upload}" method='POST'>
+            <form  th:action="${btnNextHref}" method='POST'>
 				<div class="fieldDiv">
 					<div th:if="${nameError}" th:text="${nameErrorMsg}" class="badMsgDiv"></div>
 					<label th:text="${nameLbl}"></label> <br>
