@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org">
+	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2LXPE7W1DF"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-2LXPE7W1DF');
+		</script>
+		
+		<meta charset ="UTF-8"/>
+		<title th:text="${title}"></title>
+		<meta name="description" th:content="${subtitle}">
+
+		<link rel="icon" type="image/png" href="resources/logo.jpg">
+		
+		<link href="/css/variables.css" rel="stylesheet" type="text/css">
+		<link href="/css/fonts.css" rel="stylesheet" type="text/css">
+		<link href="/css/styles.css" rel="stylesheet" type="text/css">
+		<link th:replace="../fragments/navigation :: navigationCss">
+		
+    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<body>
+		<header th:replace="../fragments/navigation :: header"></header>
+		<main>
+            <h2 th:text="${title}"></h2>
+			<form th:action="@{/pay/{id}(id=${course.id})}" method='POST'>
+				<h3>Payment</h3>
+				<label>Accepted Cards</label>
+				<div class="icon-container">
+					<i class="fa fa-cc-visa" style="color:navy;"></i>
+					<i class="fa fa-cc-amex" style="color:blue;"></i>
+					<i class="fa fa-cc-mastercard" style="color:red;"></i>
+					<i class="fa fa-cc-discover" style="color:orange;"></i>
+				</div>
+				<div class="fieldDiv">
+					<label for="price">Total</label>
+					<input type="number" id="price" name="price" th:value="${course.price}" disabled="true">
+				</div>
+
+				<div class="fieldDiv">
+					<label for="currency">Currency</label>
+					<input type="text" id="currency" name="currency" th:value="${course.coin}" disabled="true">
+				</div>
+
+				<div class="fieldDiv">
+					<label for="method">Payment Method</label>
+					<input type="text" id="method" name="method" value="Paypal" disabled="true">
+				</div>
+
+				<div class="fieldDiv">
+					<label for="intent">Intent</label>
+					<input type="text" id="intent" name="intent" value="sale" disabled="true">
+				</div>
+
+				<div class="fieldDiv">
+					<label for="description">Payment Description</label>
+					<input type="text" id="description" name="description" th:value="${course.name}" disabled="true">
+				</div>
+					<button th:text="${btnbuyMsg}" type="submit"></button>
+            </form>
+		</main>
+	</body>
+	<footer th:replace="../fragments/navigation :: footer"></footer>
+</html>

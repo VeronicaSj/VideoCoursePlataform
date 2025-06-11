@@ -81,7 +81,15 @@ public class UserService implements UserDetailsService {
     public List<Course> getHelpCourses(){
         List<Course> res = null;
         User user = (User) userRepo.findByUsername("helpAcademice");
-        res = user.getCreatedCourses();
+        if (user!=null) {
+            res = user.getCreatedCourses();
+        }
+        return res;
+    }
+
+    public List<Course> getBoughtCourses(User user){
+        List<Course> res = null;
+        res = user.getUserCourses();
         return res;
     }
 }

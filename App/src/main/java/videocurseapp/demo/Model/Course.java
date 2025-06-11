@@ -70,9 +70,6 @@ public class Course {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Video> videos;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<User> alumnList;
-
     public Set<Video> getVideos() {
         return videos;
     }
@@ -194,20 +191,12 @@ public class Course {
         this.img = img;
     }
 
-    public List<User> getAlumnList() {
-        return alumnList;
-    }
-
-    public void setAlumnList(List<User> alumnList) {
-        this.alumnList = alumnList;
-    }
-
     @Override
     public String toString() {
         return "Course [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + ", coin="
                 + coin + ", punctuation=" + punctuation + ", creationDate=" + creationDate + ", lastUpdate="
                 + lastUpdate + ", deletionDate=" + deletionDate + ", isPublic=" + isPublic + ", isHolded=" + isHolded
-                + ", img=" + img + ", videos=" + videos + ", alumnList=" + alumnList + "]";
+                + ", img=" + img + ", videos=" + videos +"]";
     }
 
     

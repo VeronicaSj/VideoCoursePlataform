@@ -58,4 +58,10 @@ public class CourseService {
         }
         return res;
     }
+
+    public ArrayList<Course> searchCourses(String search){
+        ArrayList<Course> res = null;
+        res= (ArrayList<Course>)courseRepository.findByNameCustom(search);
+        return res;
+    }
 }

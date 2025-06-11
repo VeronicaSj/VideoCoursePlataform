@@ -68,7 +68,7 @@ class SecurityConfig {
         http
             .authorizeRequests(request -> request.requestMatchers(
                 new AntPathRequestMatcher("/"))
-                .anonymous());
+                .permitAll());
         http
             .authorizeRequests(request -> request.requestMatchers(
                 new AntPathRequestMatcher("/signup/**"))
@@ -114,6 +114,14 @@ class SecurityConfig {
               new AntPathRequestMatcher("/videos/**"))
               .authenticated());
 
+        http
+          .authorizeRequests(request -> request.requestMatchers(
+              new AntPathRequestMatcher("/payexample/**"))
+              .authenticated());
+        http
+          .authorizeRequests(request -> request.requestMatchers(
+              new AntPathRequestMatcher("/pay/**"))
+              .authenticated());
         //////////////////////////////////////
         //return
 		return http.build();

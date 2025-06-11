@@ -46,6 +46,11 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Course> createdCourses;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Course> userCourses;
+
+    
+
     public List<Course> getCreatedCourses() {
         return createdCourses;
     }
@@ -59,6 +64,21 @@ public class User implements UserDetails {
             createdCourses = new ArrayList<Course>();
         }
         this.createdCourses.add(c);
+    }
+
+    public List<Course> getUserCourses() {
+        return userCourses;
+    }
+
+    public void setUserCourses(List<Course> userCourses) {
+        this.userCourses = userCourses;
+    }
+
+    public void addUserCourses(Course c) {
+        if(this.userCourses==null){
+            userCourses = new ArrayList<Course>();
+        }
+        this.userCourses.add(c);
     }
 
     

@@ -27,24 +27,48 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
             <h2 th:text="${title}"></h2>
-			<form >
-				<div class="columnDiv" th:if="${videolist}">
+
+			<div class="columnDiv">
+				<img th:if="${img}" th:src="@{'data:image/jpeg;base64,'+${img.getImgBase64()}}" alt="Course Image" class="image">
+				<div class="rowDiv">
+					<p><b>Course Title: </b></p>
+					<p th:text="${course.getName()}"></p>
+				</div>
+				<div class="rowDiv">
+					<p><b>Description: </b></p>
+					<p th:text="${course.getDescription()}"></p>
+				</div>
+				<div class="rowDiv">
+					<p><b>Price: </b></p>
+					<p th:text="${course.getPrice()}"></p>
+				</div>
+				<div class="rowDiv">
+					<p><b>Price coin: </b></p>
+					<p th:text="${course.getCoin()}"></p>
+				</div>
+				<div class="rowDiv">
+					<p><b>Is public: </b></p>
+					<p th:text="${course.getIsPublic()}"></p>
+				</div>
+					
+				<div class="columnDiv" th:if="${course.getVideos()}">
 					<table >
 						<thead >
 							<tr>
-								<th scope="col">Video Name</th>
+								<th scope="col">Video List</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="video : ${videolist}">
-								<td><a th:href="@{${video.id}}" >[[${video.title}]]</a></td>
+							<tr th:each="video : ${course.getVideos()}">
+								<td>[[${video.title}]]</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<button type="submit" th:formaction="${btnAddNewHref}">Add New Video</button>
-				<button type="submit" th:formaction="${btnNextHref}">Next</button>
-			</form>
+				<form  th:action="@{/courses/buy/form/{id}(id=${course.id})}" method='GET'>
+					<button th:text="${btnbuyMsg}" th:disabled="${btnbuydisabled}" type="submit"></button>
+				</form>
+			</div>
 		</main>
 	</body>
 	<footer th:replace="../fragments/navigation :: footer"></footer>

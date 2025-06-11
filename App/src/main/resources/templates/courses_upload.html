@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.thymeleaf.org">
 	<head>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2LXPE7W1DF"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'G-2LXPE7W1DF');
+		</script>
+		
 		<meta charset ="UTF-8"/>
 		<title th:text="${title}"></title>
 		<meta name="description" th:content="${subtitle}">
@@ -38,7 +48,6 @@
 					<label th:text="${coinLbl}"></label> <br>
 					<select id="coin" name="coin" required >
 						<option value="EUR" th:selected="${coinValueEUR}">EUR</option>
-						<option value="USD" th:selected="${coinValueUSD}">USD</option>
 					</select>
 				</div>
 				<div class="fieldDiv">

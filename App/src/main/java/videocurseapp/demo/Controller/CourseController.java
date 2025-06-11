@@ -153,6 +153,7 @@ public class CourseController {
         User user = (User) userService.findInUseUser();
         if(user != null){
             Course course = courseService.find(idcourse);
+            boolean thereAreVideos= false;
             model = parent.basicModelGenerator(user, model, "Course not foud!");
             if (course!=null) {
                 model.addAttribute("title", course.getName());
@@ -160,14 +161,18 @@ public class CourseController {
                 ArrayList<NavLink> sideBarLinks = new ArrayList<NavLink>();
 
                 ArrayList<Video> videolist = courseService.listVideos(course);
+                if(videolist!=null && videolist.size()>0){
+                    thereAreVideos=true;
+                }
                 for (Video v : videolist) {
                     sideBarLinks.add(new NavLink("/courses/watch/"+idcourse+"/"+v.getId(), v.getTitle()));
                 }
                 model.addAttribute("sideBarLinks", sideBarLinks);
-                
             }
             
             model.addAttribute("videosrc", "/video/"+idvideo);
+            
+            model.addAttribute("thereAreVideos", thereAreVideos);
             return "course_watch";
         }
         return "redirect:/logout";
