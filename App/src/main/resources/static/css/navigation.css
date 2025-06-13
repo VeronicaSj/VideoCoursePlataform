@@ -59,3 +59,18 @@
 .dropdown-content:hover  {
 	display: block;
 }
+
+.navlogo {
+    max-height:100%; max-width:100%; height:auto;
+                        width:auto; display: block;
+}
+
+
+@media only screen and (max-width: 900px) {
+    .avatar-icon {
+        display:none;
+    }
+    .navlogo {
+        display: none;
+    }
+}

@@ -26,10 +26,10 @@
 	<body>
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
-            <div class="videoWatch">
+            <div class="rowDiv">
                 <div th:if="${thereAreVideos}">
                     <div class="sideBar" >
-                            <p class="sideBarItem"><b th:text="${sidebartitle}"></b></p>
+                            <b th:text="${sidebartitle}"></b>
                             <a th:each="link : ${sideBarLinks}" 
                                 class="sideBarItem"
                                 th:href="@{${link.herf}}" th:text="${link.text}"></a>

@@ -6,36 +6,37 @@
 		<link href="/css/navigation.css" rel="stylesheet" type="text/css" th:fragment="navigationCss">
     </head>
     <body>
-        <div th:each="navLink : ${navLinkList}" th:fragment="navbar" class="navigationlist">
-            <a th:href="@{${navLink.herf}}" th:text="${navLink.text}"></a>
-        </div>
 
-        <div th:fragment="header">
-            <header >
-                <a th:href="${navLinkList[0].herf}">
-                    <img src="/resources/logo.png" alt="logo" 
-                        style="max-height:100%; max-width:100%; height:auto;
-                        width:auto; display: block;">
-                </a>
-                <div class="headerTitleContainer">
-                    <h3><a th:href="${navLinkList[0].herf}">AcadeMice</a></h3>
-                </div>
-                <div th:replace="../fragments/navigation :: navbar" class="navigationlist" ></div>
-                <div style="height:100%; width:100%;"></div>
-                <div class="avatar-dropdown">
-                    <img th:if="${avatar}" th:src="@{'data:image/jpeg;base64,'+${avatar.getImgBase64()}}" th:alt="avatar" class="avatar-icon" >
-                    <div class="dropdown-content">
-                        <a th:href="@{/account}">Profile</a>
-                        <a th:href="@{/logout}">Logout</a>
+        <div class="rowDiv">
+            <div th:each="navLink : ${navLinkList}" th:fragment="navbar" class="navigationlist">
+                <a th:href="@{${navLink.herf}}" th:text="${navLink.text}"></a>
+            </div>
+            <div th:fragment="header">
+                <header >
+                    <a th:href="${navLinkList[0].herf}">
+                        <img src="/resources/logo.png" alt="logo" 
+                            class="navlogo">
+                    </a>
+                    <div class="headerTitleContainer">
+                        <h3><a th:href="${navLinkList[0].herf}">AcadeMice</a></h3>
                     </div>
-                </div>
-            </header>
+                    <div th:replace="../fragments/navigation :: navbar" class="navigationlist" ></div>
+                    <div style="height:100%; width:100%;"></div>
+                    <div class="avatar-dropdown">
+                        <img th:if="${avatar}" th:src="@{'data:image/jpeg;base64,'+${avatar.getImgBase64()}}" th:alt="avatar" class="avatar-icon" >
+                        <div class="dropdown-content">
+                            <a th:href="@{/account}">Profile</a>
+                            <a th:href="@{/logout}">Logout</a>
+                        </div>
+                    </div>
+                </header>
+            </div>
         </div>
 
         <footer th:fragment="footer">
             <a th:href="${navLinkList[0].herf}">
                 <img src="/resources/logo.png" alt="logo" 
-                    style="max-height:50%; max-width:50%;  display: block;">
+                    class="navlogo">
             </a>
 			<div th:replace="../fragments/navigation :: navbar" class="navigationlist"></div>
             <div style="max-height:100%; max-width:100%; height:100%; width:100%;"></div>

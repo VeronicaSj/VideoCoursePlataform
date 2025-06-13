@@ -26,29 +26,31 @@
 	<body>
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
-			<div class="sideBar" >
-					<a th:each="link : ${sideBarLinks}" 
-						class="sideBarItem"
-						th:href="@{${link.herf}}" th:text="${link.text}"></a>
-			</div>
-			<div class="columnDiv">
-				<h2 th:text="${title}"></h2>
-				<div class="courseGridDiv">
-					<div th:each="course: ${courseList}" class="courseDiv">
-						<a th:href="@{/courses/creator/{id}(id=${course.id})}">
-							<h3 th:text="${course.name}"></h3>
-							<div>
-								<img th:if="${course.img}" 
-									th:src="@{'data:image/jpeg;base64,'+${course.img.getImgBase64()}}" alt="course" class="image">
-								<img th:unless="${course.img}" 
-									th:src="@{'data:image/jpeg;base64,'+${defaultImg.getImgBase64()}}" alt="course" class="image">
-							</div>
-							<p th:text="${course.description}"></p>
-						</a>
-					</div>
+			<div class="rowDiv">
+				<div class="sideBar" >
+						<a th:each="link : ${sideBarLinks}" 
+							class="sideBarItem"
+							th:href="@{${link.herf}}" th:text="${link.text}"></a>
 				</div>
-				<div th:if="${!thereAreCourses}">
-					<h3 th:text="${noCourseMsg}"></h3>
+				<div class="columnDiv">
+					<h2 th:text="${title}"></h2>
+					<div class="courseGridDiv">
+						<div th:each="course: ${courseList}" class="courseDiv">
+							<a th:href="@{/courses/creator/{id}(id=${course.id})}">
+								<h3 th:text="${course.name}"></h3>
+								<div>
+									<img th:if="${course.img}" 
+										th:src="@{'data:image/jpeg;base64,'+${course.img.getImgBase64()}}" alt="course" class="image">
+									<img th:unless="${course.img}" 
+										th:src="@{'data:image/jpeg;base64,'+${defaultImg.getImgBase64()}}" alt="course" class="image">
+								</div>
+								<div><p th:text="${course.description}"></p></div>
+							</a>
+						</div>
+					</div>
+					<div th:if="${!thereAreCourses}">
+						<h3 th:text="${noCourseMsg}"></h3>
+					</div>
 				</div>
 			</div>
 		</main>
