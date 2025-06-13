@@ -39,16 +39,16 @@ public class CourseController {
 
     private Course tempCourse;
 
+    //translation endpint code: course1
     @GetMapping("/courses")
     public String courses( Model model ) {
         User user = (User) userService.findInUseUser();
         if(user != null){
-            model = parent.basicModelGenerator(user, model,  "My Courses");
+            model = parent.basicModelGenerator(user, model,  parent.getString(parent.MSG_course1_title));
             
-            System.out.println("tempCourse 1"+tempCourse);
             //side bar options
             ArrayList<NavLink> sideBarLinks = new ArrayList<NavLink>();
-            sideBarLinks.add(new NavLink("/courses/upload", "Upload Course"));
+            sideBarLinks.add(new NavLink("/courses/upload", parent.getString(parent.MSG_course1_uploadLink)));
             model.addAttribute("sideBarLinks", sideBarLinks);
 
             List<Course> courses = user.getCreatedCourses();
@@ -58,22 +58,34 @@ public class CourseController {
                 thereAre = true;
             }
             model.addAttribute("thereAreCourses", thereAre);
-
+            model.addAttribute("noCourseMsg", parent.getString(parent.MSG_course1_noCourseMsg));
+            
             return "courses";
         }
         return "redirect:/logout";
     }
 
+    //translation endpint code: course2
     @GetMapping("/courses/creator/{id}")
     public String coursesDetaill( Model model, 
             @PathVariable long id) {
         User user = (User) userService.findInUseUser();
         if(user != null){
             Course course = courseService.find(id);
-            model = parent.basicModelGenerator(user, model, "Course not foud!");
+            model = parent.basicModelGenerator(user, model, parent.getString(parent.MSG_course2_title));
             if (course!=null) {
                 model.addAttribute("title", course.getName());
                 model.addAttribute("img", course.getImg());
+                
+                model.addAttribute("WatchBtn", parent.getString(parent.MSG_course2_WatchBtn));
+                model.addAttribute("UpdateBtn", parent.getString(parent.MSG_course2_UpdateBtn));
+                model.addAttribute("DeleteBtn", parent.getString(parent.MSG_course2_DeleteBtn));
+                model.addAttribute("courseTitleLbl", parent.getString(parent.MSG_course2_courseTitleLbl));
+                model.addAttribute("DescriptionLbl", parent.getString(parent.MSG_course2_DescriptionLbl));
+                model.addAttribute("PriceLbl", parent.getString(parent.MSG_course2_PriceLbl));
+                model.addAttribute("coinLbl", parent.getString(parent.MSG_course2_coinLbl));
+                model.addAttribute("publicLbl", parent.getString(parent.MSG_course2_publicLbl));
+                model.addAttribute("VideoListLbl", parent.getString(parent.MSG_course2_VideoListLbl));
             }
 
             model.addAttribute("course", course);
@@ -84,22 +96,26 @@ public class CourseController {
         return "redirect:/logout";
     }
 
+    //translation endpint code: course3
     @GetMapping("/courses/delete/{id}")
     public String coursesDelete( Model model, 
             @PathVariable long id) {
         User user = (User) userService.findInUseUser();
         if(user != null){
             Course course = courseService.find(id);
-            model = parent.basicModelGenerator(user, model, "Delete Course");
+            model = parent.basicModelGenerator(user, model, parent.getString(parent.MSG_course3_title));
             if (course!=null) {
                 model.addAttribute("course", course);
-                model.addAttribute("msg", "Are you sure you want to delete this course?");
+                model.addAttribute("msg", parent.getString(parent.MSG_course3_msg));
+                model.addAttribute("deleteBtn", parent.getString(parent.MSG_course3_deleteBtn));
+                model.addAttribute("cancelBtn", parent.getString(parent.MSG_course3_cancelBtn));
             }
             return "course_delete";
         }
         return "redirect:/logout";
     }
 
+    //translation endpint code: course4
     @PostMapping("/courses/delete/{id}")
     public String coursesDeletePOST( Model model, 
             @PathVariable long id) {
@@ -113,7 +129,7 @@ public class CourseController {
         return "redirect:/logout";
     }
 
-
+    //translation endpint code: course5
     @GetMapping("/courses/watch/{idcourse}")
     public String courseshelpDetaill( Model model, 
             @PathVariable long idcourse) {
@@ -146,6 +162,7 @@ public class CourseController {
         return "redirect:/logout";
     }
 
+    //translation endpint code: course6
     @GetMapping("/courses/watch/{idcourse}/{idvideo}")
     public String courseshelpDetaill( Model model, 
             @PathVariable long idcourse,
@@ -154,7 +171,7 @@ public class CourseController {
         if(user != null){
             Course course = courseService.find(idcourse);
             boolean thereAreVideos= false;
-            model = parent.basicModelGenerator(user, model, "Course not foud!");
+            model = parent.basicModelGenerator(user, model, parent.getString(parent.MSG_course6_title));
             if (course!=null) {
                 model.addAttribute("title", course.getName());
                 
@@ -173,6 +190,11 @@ public class CourseController {
             model.addAttribute("videosrc", "/video/"+idvideo);
             
             model.addAttribute("thereAreVideos", thereAreVideos);
+
+            model.addAttribute("sidebartitle", parent.getString(parent.MSG_course6_sidebartitle));
+            model.addAttribute("sidebarNoVideo", parent.getString(parent.MSG_course6_sidebarNoVideo));
+            model.addAttribute("noVideo", parent.getString(parent.MSG_course6_noVideo));
+            
             return "course_watch";
         }
         return "redirect:/logout";

@@ -35,15 +35,22 @@
 						role="alertdialog">
 						[[${message}]]
 					</div>
-					<label>Avatar Image: </label><br>
+					<label th:text="${avatarLbl}"></label><br>
 					<input id="input-file" type="file" name="file" accept="image/png, image/jpeg" />
 				</div>
 				<div class="fieldDiv">
 					<div th:if="${errorEmail}" th:text="${errorEmailMsg}" class="errorDiv"></div>
-					<label>Email: </label><br>
+					<label th:text="${emailLbl}"></label><br>
 					<input th:value="${email}" type="email" id="email" name="email">
 				</div>
-                <button type="submit">edit</button>
+				<div class="fieldDiv">
+					<label th:text="${langLbl}"></label> <br>
+					<select id="lang" name="lang" required >
+						<option value="Español" th:selected="${langValueES}">Español</option>
+						<option value="English" th:selected="${langValueEN}">English</option>
+					</select>
+				</div>
+                <button type="submit" th:text="${editBtn}"></button>
             </form>
 		</main>
 	</body>

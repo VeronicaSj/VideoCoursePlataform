@@ -27,8 +27,20 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
             <h2 th:text="${title}"></h2>
-            <video th:src="${videosrc}" width="720px" height="480px" controls preload="none" muted autoplay="true">
-            </video>
+			<h3 th:text="${subtitle}"></h3>
+			<form  th:action="${href}" method='POST' enctype="multipart/form-data">
+				<div class="fieldDiv">
+					<div th:if="${errorTitular}" th:text="${errorTitularMsg}" class="errorDiv"></div>
+					<label th:text="${titularLbl}"></label><br>
+					<input th:value="${titular}" type="text" id="titular" name="titular">
+				</div>
+				<div class="fieldDiv">
+					<div th:if="${errorIban}" th:text="${errorIbanMsg}" class="errorDiv"></div>
+					<label th:text="${IBANLbl}"></label><br>
+					<input th:value="${iban}" type="text" id="iban" name="iban">
+				</div>
+                <button type="submit" th:text="${btnmsg}"></button>
+            </form>
 		</main>
 	</body>
 	<footer th:replace="../fragments/navigation :: footer"></footer>

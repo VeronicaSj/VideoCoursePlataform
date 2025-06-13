@@ -26,6 +26,7 @@ public class User implements UserDetails {
     private static final String AUTH_REGULAR = "REGULAR";
     private static final String AUTH_PROF = "::PROFE";
 
+
     // Unique identifier for the user
     @Id
     private String username;
@@ -49,7 +50,33 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Course> userCourses;
 
-    
+    private String titular;
+    private String iban;
+    private String lang;
+
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public void setTitular(String titular) {
+        this.titular = titular;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
 
     public List<Course> getCreatedCourses() {
         return createdCourses;

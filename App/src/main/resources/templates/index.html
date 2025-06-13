@@ -38,7 +38,7 @@
 			<p th:text="${description}"></p>
 
 			<form >
-				<button type="submit" th:formaction="@{/login}">Start</button>
+				<button type="submit" th:formaction="@{/login}" th:text="${startBtn}"></button>
 			</form>
 		</main>
 		<footer th:replace="../fragments/navigation :: footer"></footer>

@@ -32,7 +32,7 @@
 					<table >
 						<thead >
 							<tr>
-								<th scope="col">Video Name</th>
+								<th scope="col" th:text="${videonameLbl}"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -42,8 +42,8 @@
 						</tbody>
 					</table>
 				</div>
-				<button type="submit" th:formaction="${btnAddNewHref}">Add New Video</button>
-				<button type="submit" th:formaction="${btnNextHref}">Next</button>
+				<button type="submit" th:formaction="${btnAddNewHref}" th:text="${addBtn}"></button>
+				<button type="submit" th:formaction="${btnNextHref}" th:text="${nextBtn}"></button>
 			</form>
 		</main>
 	</body>

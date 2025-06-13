@@ -28,10 +28,10 @@
 		<header th:replace="../fragments/navigation :: header"></header>
 		<main>
 			<form th:action="@{/search}" method='POST'>
-				<h3>Search course</h3>
+				<h3 th:text="${searchLbl}"></h3>
 				<div class="rowDiv">
 					<input type="text" id="search" name="search">
-					<button type="submit">Search</button>
+					<button type="submit" th:text="${searchBtn}"></button>
 				</div>
 			</form>
 			<h2 th:text="${title}"></h2>
@@ -50,7 +50,7 @@
 					</div>
 				</div>
 				<div th:if="${!thereAreCourses}">
-					<h3>There is no course yet!</h3>
+					<h3 th:text="${noCourseMsg}"></h3>
 				</div>
 			</div>
 		</main>

@@ -31,23 +31,23 @@
 			<div class="columnDiv">
 				<img th:if="${img}" th:src="@{'data:image/jpeg;base64,'+${img.getImgBase64()}}" alt="Course Image" class="image">
 				<div class="rowDiv">
-					<p><b>Course Title: </b></p>
+					<p><b th:text="${courseTitleLbl}"></b></p>
 					<p th:text="${course.getName()}"></p>
 				</div>
 				<div class="rowDiv">
-					<p><b>Description: </b></p>
+					<p><b th:text="${DescriptionLbl}"></b></p>
 					<p th:text="${course.getDescription()}"></p>
 				</div>
 				<div class="rowDiv">
-					<p><b>Price: </b></p>
+					<p><b th:text="${PriceLbl}"></b></p>
 					<p th:text="${course.getPrice()}"></p>
 				</div>
 				<div class="rowDiv">
-					<p><b>Price coin: </b></p>
+					<p><b th:text="${coinLbl}"></b></p>
 					<p th:text="${course.getCoin()}"></p>
 				</div>
 				<div class="rowDiv">
-					<p><b>Is public: </b></p>
+					<p><b th:text="${publicLbl}"></b></p>
 					<p th:text="${course.getIsPublic()}"></p>
 				</div>
 					
@@ -55,7 +55,7 @@
 					<table >
 						<thead >
 							<tr>
-								<th scope="col">Video List</th>
+								<th scope="col" th:text="${videoListLbl}"></th>
 							</tr>
 						</thead>
 						<tbody>

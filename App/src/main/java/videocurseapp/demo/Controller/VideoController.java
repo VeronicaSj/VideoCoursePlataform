@@ -30,16 +30,17 @@ public class VideoController {
     
     private ControllerStaticParent parent = new ControllerStaticParent();
 
-    
+    //translation endpint code: video1
     @GetMapping("/videos/watch/{id}")
     public String watchVideo(Model model,
         @PathVariable long id) {
         User user = (User) userService.findInUseUser();
-        model = parent.basicModelGenerator(user, model,  "Watch Video");
+        model = parent.basicModelGenerator(user, model,  parent.getString(parent.MSG_video1_title1));
         model.addAttribute("videosrc", "/video/"+id);
         return "video_watch";
     }
 
+    //translation endpint code: video2
     @GetMapping("/video/{id}")
     public ResponseEntity<StreamingResponseBody> streamVideo(
             @RequestHeader(value = "Range", required = false) String httpRangeHeader,

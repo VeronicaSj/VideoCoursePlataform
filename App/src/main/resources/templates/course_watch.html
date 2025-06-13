@@ -29,7 +29,7 @@
             <div class="videoWatch">
                 <div th:if="${thereAreVideos}">
                     <div class="sideBar" >
-                            <p class="sideBarItem"><b>Videos</b></p>
+                            <p class="sideBarItem"><b th:text="${sidebartitle}"></b></p>
                             <a th:each="link : ${sideBarLinks}" 
                                 class="sideBarItem"
                                 th:href="@{${link.herf}}" th:text="${link.text}"></a>
@@ -37,7 +37,7 @@
                 </div>
                 <div th:if="${!thereAreVideos}">
                     <div class="sideBar" >
-                            <p class="sideBarItem"><b>No video disponible</b></p>
+                            <p class="sideBarItem"><b th:text="${sidebarNoVideo}"></b></p>
                     </div>
                 </div>
                 <div class="columnDiv">
@@ -47,7 +47,7 @@
                         </video>
                     </div>
                     <div th:if="${!thereAreVideos}">
-                        <h3>There is no video yet!</h3>
+                        <h3 th:text="${noVideo}"></h3>
                     </div>
                 </div>
             </div>

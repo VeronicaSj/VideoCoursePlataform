@@ -30,8 +30,8 @@
 			<p th:text="${deleteAccountWarningMsg}"></p>
 				
 			<form >
-				<button type="submit" th:formaction="@{/account/delete/confirm}">Delete</button>
-				<button type="submit" th:formaction="@{/account}">Cancel</button>
+				<button type="submit" th:formaction="@{/account/delete/confirm}" th:text="${deleteBtn}"></button>
+				<button type="submit" th:formaction="@{/account}" th:text="${cancelBtn}"></button>
 			</form>
 		</main>
 	</body>

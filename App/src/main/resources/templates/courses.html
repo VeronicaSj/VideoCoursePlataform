@@ -48,7 +48,7 @@
 					</div>
 				</div>
 				<div th:if="${!thereAreCourses}">
-					<h3>There is no course yet!</h3>
+					<h3 th:text="${noCourseMsg}"></h3>
 				</div>
 			</div>
 		</main>

@@ -36,6 +36,7 @@
 					<h2 th:text="${title}"></h2>
 					<div class="rowDiv">
 						<div class="columnDiv">
+							
                     		<img th:if="${avatar}" th:src="@{'data:image/jpeg;base64,'+${avatar.getImgBase64()}}" th:alt="avatar" class="avatar-account" >
 						</div>
 						<div class="columnDiv">

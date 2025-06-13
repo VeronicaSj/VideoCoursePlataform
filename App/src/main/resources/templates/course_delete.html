@@ -40,11 +40,11 @@
                         <p th:text="${course.description}"></p>
 					</div>
                 
-                <button type="submit" >
-                        delete
+                <button type="submit" th:text="${deleteBtn}">
+                        
                     </button>
-					<button type="submit" th:formaction="@{/courses}">
-                        cancel
+					<button type="submit" th:formaction="@{/courses}" th:text="${cancelBtn}">
+                        
                     </button>
 			</form>
 		</main>

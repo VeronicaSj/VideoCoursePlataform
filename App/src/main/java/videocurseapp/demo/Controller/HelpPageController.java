@@ -18,11 +18,12 @@ public class HelpPageController {
     private UserService userService;
     private ControllerStaticParent parent = new ControllerStaticParent();
 
+    //translation endpint code: help
     @GetMapping("/help")
     public String account( Model model ) {
         User user = (User) userService.findInUseUser();
         if(user != null){
-            model = parent.basicModelGenerator(user, model,  "Help");
+            model = parent.basicModelGenerator(user, model,  parent.getString(parent.MSG_help_title));
             
             List<Course> courses = userService.getHelpCourses();
             model.addAttribute("courseList", courses);
@@ -31,7 +32,7 @@ public class HelpPageController {
                 thereAre = true;
             }
             model.addAttribute("thereAreCourses", thereAre);
-
+            model.addAttribute("noCourse", parent.getString(parent.MSG_help_noCourse));
             return "help";
         }
         return "redirect:/logout";

@@ -31,27 +31,32 @@
             <form  th:action="@{/signup}" method='POST'>
 				<div class="fieldDiv">
 					<div th:if="${usernameInUseError}" th:text="${usernameInUseErrorMsg}" class="errorDiv"></div>
-					<label>User Name: </label> <br>
+					<label th:text="${Userlbl}"></label> <br>
 					<input th:value="${username}" type="text" id="username" name="username" required>
 				</div>
 				<div class="fieldDiv">
 					<div th:if="${errorEmail}" th:text="${errorEmailMsg}" class="errorDiv"></div>
-					<label>Email: </label><br>
+					<label th:text="${Emaillbl}"></label><br>
 					<input th:value="${email}" type="email" id="email" name="email" required>
 				</div>
 				<div class="fieldDiv">
-					<label>PassWord: </label><br>
+					<label th:text="${PassWordlbl}"></label><br>
 					<input type="password" id="pw" name="password" required>
 				</div>
 				<div class="fieldDiv">
 					<div th:if="${errorPwMatch}" th:text="${errorPwMatchMsg}" class="errorDiv"></div>
-					<label>Matching PassWord: </label><br>
+					<label th:text="${Matchinglbl}"></label><br>
 					<input type="password" id="pw2" name="matchingPassword" required>
 				</div>
-
-                <button type="submit">Sign Up</button>
+				<div class="fieldDiv">
+					<label th:text="${langLbl}"></label> <br>
+					<select id="lang" name="lang" required >
+						<option value="Español" th:selected="${langValueES}">Español</option>
+						<option value="English" th:selected="${langValueEN}">English</option>
+					</select>
+				</div>
+                <button type="submit" th:text="${submitbtn}"></button>
             </form>
-			<a th:href="@{/login}">I want to Log In</a>
 		</main>
 		<footer th:replace="../fragments/navigation :: footer"></footer>
 	</body>

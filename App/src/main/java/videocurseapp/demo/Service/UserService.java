@@ -26,13 +26,14 @@ public class UserService implements UserDetailsService {
         return (User) userRepo.findByUsername(username);
     }
 
-    public String create(String username, String password, String email) {
+    public String create(String username, String password, String email, String lang) {
         // Encodes the password and creates a new User object
         User user = new User(username, new BCryptPasswordEncoder().encode(password), email);
+        user.setLang(lang);
         // Saves the new user to the database
         userRepo.save(user);
         
-        return "Create Successfully !"; // Returns a success message
+        return "Created Successfully !"; // Returns a success message
     }
 
     public boolean delete(User user) {

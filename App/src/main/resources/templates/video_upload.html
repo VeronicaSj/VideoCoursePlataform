@@ -33,7 +33,7 @@
 				enctype="multipart/form-data">
 				<div class="fieldDiv">
 					<div th:if="${titleError}" th:text="${titleErrorMsg}" class="errorDiv"></div>
-					<label>Video title: </label> <br>
+					<label th:text="${VideotitleLbl}"></label> <br>
 					<input th:value="${videoTitle}" type="text" id="title" name="title" required>
 				</div>
 				<input id="input-file" type="file" name="file" accept="video/mp4" />
@@ -43,7 +43,7 @@
 					role="alertdialog">
 					[[${message}]]
 				</div>
-				<div>Video list will be sorted by the title</div>
+				<div th:text="${orderWarning}"></div>
                 <button type="submit" th:text="${btnUploadMsg}"></button>
 			</form>
 		</main>

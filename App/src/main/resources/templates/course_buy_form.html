@@ -29,8 +29,8 @@
 		<main>
             <h2 th:text="${title}"></h2>
 			<form th:action="@{/pay/{id}(id=${course.id})}" method='POST'>
-				<h3>Payment</h3>
-				<label>Accepted Cards</label>
+				<h3 th:text="${subtitle}"></h3>
+				<label th:text="${aceptedCardsLbl}"></label>
 				<div class="icon-container">
 					<i class="fa fa-cc-visa" style="color:navy;"></i>
 					<i class="fa fa-cc-amex" style="color:blue;"></i>
@@ -38,27 +38,27 @@
 					<i class="fa fa-cc-discover" style="color:orange;"></i>
 				</div>
 				<div class="fieldDiv">
-					<label for="price">Total</label>
+					<label for="price" th:text="${totalLbl}"></label>
 					<input type="number" id="price" name="price" th:value="${course.price}" disabled="true">
 				</div>
 
 				<div class="fieldDiv">
-					<label for="currency">Currency</label>
+					<label for="currency" th:text="${currencyLbl}"></label>
 					<input type="text" id="currency" name="currency" th:value="${course.coin}" disabled="true">
 				</div>
 
 				<div class="fieldDiv">
-					<label for="method">Payment Method</label>
+					<label for="method" th:text="${methodLbl}"></label>
 					<input type="text" id="method" name="method" value="Paypal" disabled="true">
 				</div>
 
 				<div class="fieldDiv">
-					<label for="intent">Intent</label>
+					<label for="intent" th:text="${intentLbl}"></label>
 					<input type="text" id="intent" name="intent" value="sale" disabled="true">
 				</div>
 
 				<div class="fieldDiv">
-					<label for="description">Payment Description</label>
+					<label for="description" th:text="${descriptionLbl}"></label>
 					<input type="text" id="description" name="description" th:value="${course.name}" disabled="true">
 				</div>
 					<button th:text="${btnbuyMsg}" type="submit"></button>
