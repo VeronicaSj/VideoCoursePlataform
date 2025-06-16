@@ -1,1 +1,1 @@
-# VideoCursePlataform
+# VideoCoursePlataform
